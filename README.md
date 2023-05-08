@@ -38,7 +38,8 @@ model metric=R2. Press Start > Better Accuracy to train ML model
 
 12 test deployed model per blog
 
-13 import f100.sql into APEX...how?
+13 import APEX application: log into your ADB's APEX workspace, then
+click App Builder > Import f100.sql > Next > Next > Install
 
-14 execute APEX dashboards per blog
+14 inspect APEX dashboards per blog
 
