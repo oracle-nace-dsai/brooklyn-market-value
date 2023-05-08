@@ -21,7 +21,7 @@ git branch=master
 coordinates. However it does include XCOORD and YCOORD, and
 the following step (which is not described in the blog) uses the XCOORD,YCOORD data
 plus the lat,long data for a few properties extracted from Google Maps,
-to trail ML models to estimate the lat,long of all properties. Eyeball comparisons of estimates
+to train ML models to estimate the lat,long of all properties. Eyeball comparisons of estimates
 to actuals indicate that the error in this estimate is approximately a fraction of a city block,
 which is good enough for tutorial purposes
 
