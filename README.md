@@ -36,7 +36,7 @@ model metric=R2. Press Start > Better Accuracy to train ML model
 
 11 deploy model as described in blog post
 
-12 test model per blog
+12 test deployed model per blog
 
 13 import f100.sql into APEX...how?
 
