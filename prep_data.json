@@ -2,9 +2,9 @@
   "paragraphs": [
     {
       "title": "inspect raw home sales data",
-      "text": "%sql\nselect * from admin.brooklyn_sales_raw fetch first 5 rows only;",
+      "text": "%sql\nselect * from admin.brooklyn_sales fetch first 5 rows only;",
       "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:43:58+0000",
+      "dateUpdated": "2023-05-12T03:58:55+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -19,14 +19,22 @@
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
               "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
               "setting": {
                 "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
-                      "RECORD_NO": "number",
+                      "RECORD_ID": "number",
                       "BOROUGH": "number",
                       "NEIGHBORHOOD": "string",
                       "BUILDING_CLASS_CATEGORY": "string",
@@ -125,7 +133,7 @@
                       "YCOORD": "number",
                       "ZONEMAP": "string",
                       "ZMCODE": "string",
-                      "SANBORN": "string",
+                      "SANBORN": "date",
                       "TAXMAP": "number",
                       "EDESIGNUM": "string",
                       "APPBBL": "number",
@@ -140,28 +148,20 @@
                     },
                     "updated": false
                   },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
+                  "updated": false
                 }
-              },
-              "commonSetting": {}
+              }
             }
           }
         },
         "graph": {
           "mode": "table",
-          "height": 300,
           "optionOpen": false,
           "keys": [],
           "values": [],
+          "scatter": {},
           "groups": [],
-          "scatter": {}
+          "height": 300
         },
         "enabled": true
       },
@@ -174,7 +174,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "RECORD_NO\tBOROUGH\tNEIGHBORHOOD\tBUILDING_CLASS_CATEGORY\tTAX_CLASS\tBLOCK\tLOT\tEASEMENT\tBUILDING_CLASS\tADDRESS\tAPARTMENT_NUMBER\tZIP_CODE\tRESIDENTIAL_UNITS\tCOMMERCIAL_UNITS\tTOTAL_UNITS\tLAND_SQFT\tGROSS_SQFT\tYEAR_BUILT\tTAX_CLASS_AT_SALE\tBUILDING_CLASS_AT_SALE\tSALE_PRICE\tSALE_DATE\tYEAR_OF_SALE\tBOROUGH_\tCD\tCT2010\tCB2010\tSCHOOLDIST\tCOUNCIL\tZIPCODE\tFIRECOMP\tPOLICEPRCT\tHEALTHCENT\tHEALTHAREA\tSANITBORO\tSANITDISTR\tSANITSUB\tADDRESS_\tZONEDIST1\tZONEDIST2\tZONEDIST3\tZONEDIST4\tOVERLAY1\tOVERLAY2\tSPDIST1\tSPDIST2\tSPDIST3\tLTDHEIGHT\tSPLITZONE\tBLDGCLASS\tLANDUSE\tEASEMENTS\tOWNERTYPE\tOWNERNAME\tLOTAREA\tBLDGAREA\tCOMAREA\tRESAREA\tOFFICEAREA\tRETAILAREA\tGARAGEAREA\tSTRGEAREA\tFACTRYAREA\tOTHERAREA\tAREASOURCE\tNUMBLDGS\tNUMFLOORS\tUNITSRES\tUNITSTOTAL\tLOTFRONT\tLOTDEPTH\tBLDGFRONT\tBLDGDEPTH\tEXT\tPROXCODE\tIRRLOTCODE\tLOTTYPE\tBSMTCODE\tASSESSLAND\tASSESSTOT\tEXEMPTLAND\tEXEMPTTOT\tYEARBUILT\tYEARALTER1\tYEARALTER2\tHISTDIST\tLANDMARK\tBUILTFAR\tRESIDFAR\tCOMMFAR\tFACILFAR\tBOROCODE\tBBL\tCONDONO\tTRACT2010\tXCOORD\tYCOORD\tZONEMAP\tZMCODE\tSANBORN\tTAXMAP\tEDESIGNUM\tAPPBBL\tAPPDATE\tPLUTOMAPID\tFIRM07_FLA\tPFIRM15_FL\tVERSION\tMAPPLUTO_F\tSHAPE_LENG\tSHAPE_AREA\n2\t3\tDOWNTOWN-FULTON FERRY\t29  COMMERCIAL GARAGES\t4\t54\t1\t\tG7\t85 JAY STREET\t\t11201\t0\t0\t0\t134988\t0\t0\t4\tG7\t345000000\t2016-12-20\t2016\tBK\t302\t21\t3017\t13\t33\t11201\tL118\t84\t36\t1000\t3\t02\t1B\t87 JAY STREET\tM1-2/R8\tNA\tNA\tNA\tNA\tNA\tMX-2\tNA\tNA\tNA\tN\tG7\t10\t0\tP\t85 JAY STREET BROOKLY\t134988\t0\t0\t0\t0\t0\t0\t0\t0\t0\t7\t0\t0\t0\t0\t490.5\t275.33\t0\t0\tNA\t0\tN\t5\t5\t1571850\t1571850\t1571850\t1571850\t0\t0\t0\tNA\tNA\t0\t7.2\t2\t6.5\t3\t3000540001\t0\t0021\t988208\t195011\t12d\tNA\t302 016\t30101\tNA\t3000540001\t12/06/2002\t1\tNA\tNA\t17V1.1\t0\t1559.88914353\t140131.577176\n3\t3\tBROOKLYN HEIGHTS\t21  OFFICE BUILDINGS\t4\t204\t1\t\tO6\t29 COLUMBIA HEIGHTS\t\t11201\t0\t0\t0\t32000\t304650\t1924\t4\tO6\t340000000\t2016-08-03\t2016\tBK\t302\t1\t1003\t13\t33\t11201\tE205\t84\t38\t2300\t3\t02\t1A\t29 COLUMBIA HEIGHTS\tM2-1\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tN\tO6\t05\t0\tNA\t25-30 COLUMBIA HEIGHT\t32000\t304650\t304650\t0\t264750\t0\t0\t0\t0\t39900\t2\t1\t13\t0\t0\t92.42\t335.92\t335\t92\tNA\t0\tY\t3\t5\t1548000\t25463250\t0\t0\t1924\t1980\t0\tNA\tNA\t9.52\t0\t2\t0\t3\t3002040001\t0\t0001\t985952\t195007\t12d\tNA\t302 004\t30106\tNA\t0\tNA\t1\tNA\tNA\t17V1.1\t0\t890.718521021\t34656.4472405\n4\t3\tMILL BASIN\t22  STORE BUILDINGS\t4\t8470\t55\t\tK6\t5120 AVENUE U\t\t11234\t0\t123\t123\t905000\t2548000\t1970\t4\tK6\t276947000\t2012-11-28\t2012\tBK\t318\t698\t2005\t22\t46\t11234\tE323\t63\t35\t8822\t3\t18\t4E\t5120 AVENUE U\tM3-1\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tN\tK6\t05\t1\tNA\tBROOKLYN KINGS PLAZA\t905000\t2548000\t2548000\t0\t0\t1263000\t1285000\t0\t0\t0\t2\t4\t2\t0\t123\t930\t859\t0\t0\tNA\t0\tY\t3\t5\t36532350\t149792400\t0\t0\t1970\t0\t0\tNA\tNA\t2.82\t0\t2\t0\t3\t3084700055\t0\t0698\t1006597\t161424\t23b\tNA\t319 077\t32502\tNA\t0\tNA\t1\t1\t1\t17V1.1\t0\t3729.78685686\t797554.847834\n5\t3\tBROOKLYN HEIGHTS\t26 OTHER HOTELS\t4\t230\t1\t\tH8\t21 CLARK STREET\t\t11201\t0\t1\t1\t20267\t356000\t1927\t4\tH8\t202500000\t2017-10-31\t2017\tBK\t302\t3.01\t2000\t13\t33\t11201\tE205\t84\t38\t2300\t3\t02\t1A\t79 WILLOW STREET\tR6\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tLH-1\tN\tH8\t08\t0\tX\tWATCHTOWER C/O REAL P\t20267\t356000\t30000\t0\t30000\t0\t0\t0\t0\t0\t2\t1\t15\t0\t1\t202\t100.33\t202\t100.33\tNA\t0\tN\t3\t2\t2250000\t27166050\t2250000\t27166050\t1927\t1998\t2000\tBrooklyn Heights Historic District\tNA\t17.57\t2.43\t0\t4.8\t3\t3002300001\t0\t000301\t985622\t193713\t12d\tNA\t302 014\t30106\tNA\t0\tNA\t1\tNA\tNA\t17V1.1\t0\t620.761169374\t21360.1476315\n6\t3\tWILLIAMSBURG-SOUTH\t31  COMMERCIAL VACANT LAND\t4\t2428\t1\t\tV1\t329 KENT AVENUE\t\t11249\t0\t0\t0\t57600\t0\t0\t4\tV1\t185445000\t2012-10-11\t2012\tBK\t301\t551\t1009\t14\t33\t11249\tE221\t90\t30\t400\t3\t01\t2B\t325 KENT AVENUE\tR6\tNA\tNA\tNA\tC2-4\tNA\tNA\tNA\tNA\tNA\tN\tD7\t04\t0\tNA\t325 KENT LLC\t57600\t382746\t11200\t371546\t1822\t9378\t0\t0\t0\t0\t2\t1\t0\t522\t525\t180\t320\t179\t315\tNA\t0\tN\t3\t5\t3110400\t5579990\t0\t0\t2015\t0\t0\tNA\tNA\t6.64\t2.43\t0\t4.8\t3\t3024280001\t0\t0551\t993500\t199202\t12d\tNA\t303 007\t30806\tE-337\t0\tNA\t1\tNA\tNA\t17V1.1\t0\t1006.33799946\t58564.8643115\n"
+            "data": "RECORD_ID\tBOROUGH\tNEIGHBORHOOD\tBUILDING_CLASS_CATEGORY\tTAX_CLASS\tBLOCK\tLOT\tEASEMENT\tBUILDING_CLASS\tADDRESS\tAPARTMENT_NUMBER\tZIP_CODE\tRESIDENTIAL_UNITS\tCOMMERCIAL_UNITS\tTOTAL_UNITS\tLAND_SQFT\tGROSS_SQFT\tYEAR_BUILT\tTAX_CLASS_AT_SALE\tBUILDING_CLASS_AT_SALE\tSALE_PRICE\tSALE_DATE\tYEAR_OF_SALE\tBOROUGH_\tCD\tCT2010\tCB2010\tSCHOOLDIST\tCOUNCIL\tZIPCODE\tFIRECOMP\tPOLICEPRCT\tHEALTHCENT\tHEALTHAREA\tSANITBORO\tSANITDISTR\tSANITSUB\tADDRESS_\tZONEDIST1\tZONEDIST2\tZONEDIST3\tZONEDIST4\tOVERLAY1\tOVERLAY2\tSPDIST1\tSPDIST2\tSPDIST3\tLTDHEIGHT\tSPLITZONE\tBLDGCLASS\tLANDUSE\tEASEMENTS\tOWNERTYPE\tOWNERNAME\tLOTAREA\tBLDGAREA\tCOMAREA\tRESAREA\tOFFICEAREA\tRETAILAREA\tGARAGEAREA\tSTRGEAREA\tFACTRYAREA\tOTHERAREA\tAREASOURCE\tNUMBLDGS\tNUMFLOORS\tUNITSRES\tUNITSTOTAL\tLOTFRONT\tLOTDEPTH\tBLDGFRONT\tBLDGDEPTH\tEXT\tPROXCODE\tIRRLOTCODE\tLOTTYPE\tBSMTCODE\tASSESSLAND\tASSESSTOT\tEXEMPTLAND\tEXEMPTTOT\tYEARBUILT\tYEARALTER1\tYEARALTER2\tHISTDIST\tLANDMARK\tBUILTFAR\tRESIDFAR\tCOMMFAR\tFACILFAR\tBOROCODE\tBBL\tCONDONO\tTRACT2010\tXCOORD\tYCOORD\tZONEMAP\tZMCODE\tSANBORN\tTAXMAP\tEDESIGNUM\tAPPBBL\tAPPDATE\tPLUTOMAPID\tFIRM07_FLA\tPFIRM15_FL\tVERSION\tMAPPLUTO_F\tSHAPE_LENG\tSHAPE_AREA\n3\t3\tBROOKLYN HEIGHTS\t21  OFFICE BUILDINGS\t4\t204\t1\t\tO6\t29 COLUMBIA HEIGHTS\t\t11201\t0\t0\t0\t32000\t304650\t1924\t4\tO6\t340000000\t2016-08-03 00:00:00\t2016\tBK\t302\t1\t1003\t13\t33\t11201\tE205\t84\t38\t2300\t3\t02\t1A\t29 COLUMBIA HEIGHTS\tM2-1\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tN\tO6\t05\t0\tNA\t25-30 COLUMBIA HEIGHT\t32000\t304650\t304650\t0\t264750\t0\t0\t0\t0\t39900\t2\t1\t13\t0\t0\t92.42\t335.92\t335\t92\tNA\t0\tY\t3\t5\t1548000\t25463250\t0\t0\t1924\t1980\t0\tNA\tNA\t9.52\t0\t2\t0\t3\t3002040001\t0\t0001\t985952\t195007\t12d\tNA\t302 004\t30106\tNA\t0\tNA\t1\tNA\tNA\t17V1.1\t0\t890.718521021\t34656.4472405\n4\t3\tMILL BASIN\t22  STORE BUILDINGS\t4\t8470\t55\t\tK6\t5120 AVENUE U\t\t11234\t0\t123\t123\t905000\t2548000\t1970\t4\tK6\t276947000\t2012-11-28 00:00:00\t2012\tBK\t318\t698\t2005\t22\t46\t11234\tE323\t63\t35\t8822\t3\t18\t4E\t5120 AVENUE U\tM3-1\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tN\tK6\t05\t1\tNA\tBROOKLYN KINGS PLAZA\t905000\t2548000\t2548000\t0\t0\t1263000\t1285000\t0\t0\t0\t2\t4\t2\t0\t123\t930\t859\t0\t0\tNA\t0\tY\t3\t5\t36532350\t149792400\t0\t0\t1970\t0\t0\tNA\tNA\t2.82\t0\t2\t0\t3\t3084700055\t0\t0698\t1006597\t161424\t23b\tNA\t319 077\t32502\tNA\t0\tNA\t1\t1\t1\t17V1.1\t0\t3729.78685686\t797554.847834\n5\t3\tBROOKLYN HEIGHTS\t26 OTHER HOTELS\t4\t230\t1\t\tH8\t21 CLARK STREET\t\t11201\t0\t1\t1\t20267\t356000\t1927\t4\tH8\t202500000\t2017-10-31 00:00:00\t2017\tBK\t302\t3.01\t2000\t13\t33\t11201\tE205\t84\t38\t2300\t3\t02\t1A\t79 WILLOW STREET\tR6\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tLH-1\tN\tH8\t08\t0\tX\tWATCHTOWER C/O REAL P\t20267\t356000\t30000\t0\t30000\t0\t0\t0\t0\t0\t2\t1\t15\t0\t1\t202\t100.33\t202\t100.33\tNA\t0\tN\t3\t2\t2250000\t27166050\t2250000\t27166050\t1927\t1998\t2000\tBrooklyn Heights Historic District\tNA\t17.57\t2.43\t0\t4.8\t3\t3002300001\t0\t000301\t985622\t193713\t12d\tNA\t302 014\t30106\tNA\t0\tNA\t1\tNA\tNA\t17V1.1\t0\t620.761169374\t21360.1476315\n6\t3\tWILLIAMSBURG-SOUTH\t31  COMMERCIAL VACANT LAND\t4\t2428\t1\t\tV1\t329 KENT AVENUE\t\t11249\t0\t0\t0\t57600\t0\t0\t4\tV1\t185445000\t2012-10-11 00:00:00\t2012\tBK\t301\t551\t1009\t14\t33\t11249\tE221\t90\t30\t400\t3\t01\t2B\t325 KENT AVENUE\tR6\tNA\tNA\tNA\tC2-4\tNA\tNA\tNA\tNA\tNA\tN\tD7\t04\t0\tNA\t325 KENT LLC\t57600\t382746\t11200\t371546\t1822\t9378\t0\t0\t0\t0\t2\t1\t0\t522\t525\t180\t320\t179\t315\tNA\t0\tN\t3\t5\t3110400\t5579990\t0\t0\t2015\t0\t0\tNA\tNA\t6.64\t2.43\t0\t4.8\t3\t3024280001\t0\t0551\t993500\t199202\t12d\tNA\t303 007\t30806\tE-337\t0\tNA\t1\tNA\tNA\t17V1.1\t0\t1006.33799946\t58564.8643115\n9\t3\tWILLIAMSBURG-SOUTH\t29  COMMERCIAL GARAGES\t4\t2128\t5\t\tG7\t418 KENT AVENUE\t\t11249\t0\t0\t0\t44704\t0\t0\t4\tG7\t165000000\t2015-02-04 00:00:00\t2015\tBK\t301\t549\t2006\t14\t33\t11249\tE221\t90\t30\t500\t3\t01\t4A\t418 KENT AVENUE\tR7-3\tC4-3\tNA\tNA\tC2-4\tNA\tNA\tNA\tNA\tNA\tY\tD1\t03\t0\tNA\t420 KENT AVENUE LLC\t44704\t463427\t4884\t458543\t0\t4884\t0\t0\t0\t0\t2\t2\t20\t470\t472\t225.08\t281.86\t0\t0\tNA\t0\tY\t5\t5\t1699200\t3534300\t0\t0\t2016\t0\t0\tNA\tNA\t10.37\t5\t0\t5\t3\t3021280005\t0\t0549\t992807\t198027\t12d\tNA\t303 006\t30801\tR-47\t3021280005\t10/29/2014\t1\t1\t1\t17V1.1\t0\t992.915660585\t47019.5677861\n"
           }
         ]
       },
@@ -182,20 +182,20 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_169604392",
-      "id": "20221123-191651_1976702942",
+      "jobName": "paragraph_1683862361596_-2037768747",
+      "id": "20230512-033241_1202873360",
       "dateCreated": "2022-10-10T20:20:53+0000",
-      "dateStarted": "2023-04-27T16:43:58+0000",
-      "dateFinished": "2023-04-27T16:44:12+0000",
+      "dateStarted": "2023-05-12T03:58:38+0000",
+      "dateFinished": "2023-05-12T03:58:55+0000",
       "status": "FINISHED",
       "focus": true,
       "$$hashKey": "object:41"
     },
     {
-      "title": "brooklyn_sales_raw contains about 300K records",
-      "text": "%sql\nselect count(*) from admin.brooklyn_sales_raw;",
+      "title": "brooklyn_sales_raw contains about 390K records",
+      "text": "%sql\nselect count(*) from admin.brooklyn_sales;",
       "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:44:12+0000",
+      "dateUpdated": "2023-05-12T03:59:49+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -208,12 +208,21 @@
         "title": true,
         "results": {
           "0": {
+            "helium": {},
             "graph": {
               "mode": "table",
-              "height": 300,
               "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
               "setting": {
                 "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
@@ -221,88 +230,9 @@
                     },
                     "updated": false
                   },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
+                  "updated": false
                 }
-              },
-              "commonSetting": {}
-            },
-            "helium": {}
-          }
-        },
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TABLE",
-            "data": "COUNT(*)\n303728\n"
-          }
-        ]
-      },
-      "apps": [],
-      "interrupted": false,
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_-1648493968",
-      "id": "20221123-191651_410995220",
-      "dateCreated": "2022-10-10T22:01:06+0000",
-      "dateStarted": "2023-04-27T16:44:12+0000",
-      "dateFinished": "2023-04-27T16:44:23+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:42"
-    },
-    {
-      "text": "%sql\nselect  address, address_ from \n    (select address, address_, dbms_random.value(0.0, 1.0) as ran_num from admin.brooklyn_sales_raw order by rownum)\n    where rownum < 30;",
-      "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:44:23+0000",
-      "progress": 0,
-      "config": {
-        "editorSetting": {
-          "language": "sql",
-          "editOnDblClick": false
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/osql",
-        "fontSize": 9,
-        "results": {
-          "0": {
-            "graph": {
-              "mode": "table",
-              "height": 300,
-              "optionOpen": false,
-              "setting": {
-                "table": {
-                  "tableGridState": {},
-                  "tableColumnTypeState": {
-                    "names": {
-                      "ADDRESS": "string",
-                      "ADDRESS_": "string"
-                    },
-                    "updated": false
-                  },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
-                }
-              },
-              "commonSetting": {}
+              }
             }
           }
         },
@@ -317,7 +247,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "ADDRESS\tADDRESS_\n85 JAY STREET\t87 JAY STREET\n29 COLUMBIA HEIGHTS\t29 COLUMBIA HEIGHTS\n5120 AVENUE U\t5120 AVENUE U\n21 CLARK STREET\t79 WILLOW STREET\n329 KENT AVENUE\t325 KENT AVENUE\n16 COURT STREET\t16 COURT STREET\n250 N 10 STREET\t236 NORTH 10 STREET\n418 KENT AVENUE\t418 KENT AVENUE\n9-47 HALL ST\t39 HALL STREET\n20 NORTH 12 STREET\t20 NORTH 12 STREET\n625 FULTON\t625 FULTON STREET\n55 PROSPECT STREET\t107 ADAMS STREET\n90 SANDS STREET\t90 SANDS STREET\n19 KENT AVENUE\t19 KENT AVENUE\n246 NORTH 8TH   STREET\t246 NORTH 8 STREET\n8717 FOSTER AVENUE\t8717 FOSTER AVENUE\n77 SANDS STREET\t137 PEARL STREET\n155 WEST STREET\t155 WEST STREET\nNORTH 6TH   STREET\t2 NORTH 6 STREET\n16 COURT STREET\t16 COURT STREET\n122 COLUMBIA HEIGHTS\t122 COLUMBIA HEIGHTS\n110 GREEN STREET\t110 GREEN STREET\n175 PEARL STREET\t175 PEARL STREET\n231 CHESTER STREET\t231 CHESTER STREET\n117 ADAMS STREET\t64 PROSPECT STREET\n1001 BOARDWALK WEST\t1001 BOARDWALK WEST\n103 NORTH 3RD STREET\t103 NORTH 3 STREET\n75-81 20TH   STREET\t75 20 STREET\n37-53 FLATBUSH AVENUE\t37 FLATBUSH AVENUE\n"
+            "data": "COUNT(*)\n390883\n"
           }
         ]
       },
@@ -325,11 +255,81 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669240252436_75796432",
-      "id": "paragraph_1669240252436_75796432",
+      "jobName": "paragraph_1683862361596_-1199443938",
+      "id": "20230512-033241_2399868",
+      "dateCreated": "2022-10-10T22:01:06+0000",
+      "dateStarted": "2023-05-12T03:59:27+0000",
+      "dateFinished": "2023-05-12T03:59:28+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:42"
+    },
+    {
+      "text": "%sql\nselect  address, address_ from \n    (select address, address_, dbms_random.value(0.0, 1.0) as ran_num from admin.brooklyn_sales order by rownum)\n    where rownum < 30;",
+      "user": "MLUSER",
+      "dateUpdated": "2023-05-12T04:00:30+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/osql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
+              "setting": {
+                "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "ADDRESS": "string",
+                      "ADDRESS_": "string"
+                    },
+                    "updated": false
+                  },
+                  "updated": false
+                }
+              }
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "ADDRESS\tADDRESS_\n29 COLUMBIA HEIGHTS\t29 COLUMBIA HEIGHTS\n5120 AVENUE U\t5120 AVENUE U\n21 CLARK STREET\t79 WILLOW STREET\n329 KENT AVENUE\t325 KENT AVENUE\n418 KENT AVENUE\t418 KENT AVENUE\n9-47 HALL ST\t39 HALL STREET\n16 COURT STREET\t16 COURT STREET\n250 N 10 STREET\t236 NORTH 10 STREET\n330 JAY STREET\tNA\n85 JAY STREET\t87 JAY STREET\n20 NORTH 12 STREET\t20 NORTH 12 STREET\n625 FULTON\t625 FULTON STREET\n155 WEST STREET\t155 WEST STREET\n422 FULTON STREET\tNA\nNORTH 6TH   STREET\t2 NORTH 6 STREET\n16 COURT STREET\t16 COURT STREET\n122 COLUMBIA HEIGHTS\t122 COLUMBIA HEIGHTS\n110 GREEN STREET\t110 GREEN STREET\n236 LIVINGSTON STREET\tNA\n55 PROSPECT STREET\t107 ADAMS STREET\n486 FULTON STREET\tNA\n90 SANDS STREET\t90 SANDS STREET\n19 KENT AVENUE\t19 KENT AVENUE\n246 NORTH 8TH   STREET\t246 NORTH 8 STREET\n8717 FOSTER AVENUE\t8717 FOSTER AVENUE\n77 SANDS STREET\t137 PEARL STREET\n140 SCHERMERHORN STREET\tNA\n107 COLUMBIA HEIGHTS\t107 COLUMBIA HEIGHTS\n930 HALSEY STREET\t930 HALSEY STREET\n"
+          }
+        ]
+      },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1683862361596_-1266410087",
+      "id": "20230512-033241_2028037872",
       "dateCreated": "2022-11-23T21:50:52+0000",
-      "dateStarted": "2023-04-27T16:44:23+0000",
-      "dateFinished": "2023-04-27T16:44:32+0000",
+      "dateStarted": "2023-05-12T04:00:30+0000",
+      "dateFinished": "2023-05-12T04:00:31+0000",
       "status": "FINISHED",
       "$$hashKey": "object:43"
     },
@@ -337,7 +337,7 @@
       "title": "seed ADW's random number generator",
       "text": "%script\nexec DBMS_RANDOM.SEED(12);",
       "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:44:32+0000",
+      "dateUpdated": "2023-05-12T04:01:03+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -368,11 +368,11 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_-604203244",
-      "id": "20221123-191651_1796863148",
+      "jobName": "paragraph_1683862361596_-2104070685",
+      "id": "20230512-033241_1474103854",
       "dateCreated": "2022-10-17T22:05:23+0000",
-      "dateStarted": "2023-04-27T16:44:32+0000",
-      "dateFinished": "2023-04-27T16:44:33+0000",
+      "dateStarted": "2023-05-12T04:01:03+0000",
+      "dateFinished": "2023-05-12T04:01:04+0000",
       "status": "FINISHED",
       "$$hashKey": "object:44"
     },
@@ -380,7 +380,7 @@
       "title": "import python packages",
       "text": "%python\nimport oml\nimport numpy as np\nimport pandas as pd\npd.set_option('display.max_rows', 350)\npd.set_option('display.max_columns', 100)\npd.set_option('display.width', 200)\nimport matplotlib.pyplot as plt\nplt.style.use(\"seaborn\")\ncolor_seq = plt.rcParams['axes.prop_cycle'].by_key()['color']\nsz = 14\nplt.rc('axes', labelsize=sz)\nplt.rc('xtick', labelsize=sz)\nplt.rc('ytick', labelsize=sz)\nplt.rc('legend', fontsize=sz)",
       "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:44:33+0000",
+      "dateUpdated": "2023-05-12T04:01:06+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -406,19 +406,18 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_200327176",
-      "id": "20221123-191651_1809767807",
+      "jobName": "paragraph_1683862361596_702243279",
+      "id": "20230512-033241_60515873",
       "dateCreated": "2022-11-07T15:44:24+0000",
-      "dateStarted": "2023-04-27T16:44:33+0000",
-      "dateFinished": "2023-04-27T16:44:45+0000",
+      "dateStarted": "2023-05-12T04:01:06+0000",
+      "dateFinished": "2023-05-12T04:01:18+0000",
       "status": "FINISHED",
       "$$hashKey": "object:45"
     },
     {
-      "title": "derive additional features and drop unnecessary fields",
-      "text": "%script\n--drop undesired columns, extract year,quarter, building age, and cast ResidFar and CT2010 as numbers\nbegin execute immediate 'drop table brooklyn_v1'; exception when others then null; end;\n/\nCREATE table brooklyn_v1 AS \n    (SELECT \n    record_no as transaction_id, building_class_category, gross_sqft, building_class_at_sale, sale_price, sale_date,\n    to_char(extract(year from to_date(sale_date, 'YYYY-MM-DD'))) as year_str, \n    to_char(to_date(sale_date, 'YYYY-MM-DD'), 'Q') as quarter,\n    address_, YearBuilt,\n    extract(year from to_date(sale_date, 'YYYY-MM-DD')) -  to_number(YearBuilt) as Age_years,\n    to_number(ResidFar) as ResidFar,\n    case \n        when (CT2010 = 'NA') then 0 \n        else to_number(CT2010) end \n        as CT2010,\n    SchoolDist, SanitDistr, NumFloors, AssessTot, XCoord, YCoord, LAND_SQFT, AssessLand, LotFront, SHAPE_Leng\n    FROM admin.brooklyn_sales_raw\n    where (to_number(YearBuilt) >= 1800));\n    \nselect count(*) from brooklyn_v1;",
+      "text": "%script\n--preserve undesired columns, extract year,quarter, and cast YearBuilt,ResidFar,CT2010 as numbers\nbegin execute immediate 'drop table brooklyn_v0'; exception when others then null; end;\n/\nCREATE table brooklyn_v0 AS \n    SELECT \n    record_id as transaction_id,  address_, building_class_category, gross_sqft, building_class_at_sale, sale_price, sale_date,\n    to_char(extract(year from to_date(sale_date, 'YYYY-MM-DD'))) as year_str, \n    to_char(to_date(sale_date, 'YYYY-MM-DD'), 'Q') as quarter,\n    case \n        when (YearBuilt = 'NA') then 0 \n        else to_number(YearBuilt) end \n        as YearBuilt,\n    case \n        when (ResidFar = 'NA') then 0 \n        else to_number(ResidFar) end \n        as ResidFar,\n    case \n        when (CT2010 = 'NA') then 0 \n        else to_number(CT2010) end \n        as CT2010,\n    SchoolDist, SanitDistr, NumFloors, AssessTot, XCoord, YCoord, LAND_SQFT, AssessLand, LotFront, SHAPE_Leng\n    FROM admin.brooklyn_sales;\n    \nselect count(*) from brooklyn_v0;\n",
       "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:44:45+0000",
+      "dateUpdated": "2023-05-12T04:27:38+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -427,48 +426,6 @@
         },
         "colWidth": 12,
         "editorMode": "ace/mode/plsql",
-        "fontSize": 9,
-        "title": true,
-        "results": {},
-        "enabled": true
-      },
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "results": {
-        "code": "SUCCESS",
-        "msg": [
-          {
-            "type": "TEXT",
-            "data": "\nPL/SQL procedure successfully completed.\n\n\n---------------------------\n\nTable BROOKLYN_V1 created.\n\n\n---------------------------\nCOUNT(*)   \n    295356 \n\n\n\n---------------------------\n"
-          }
-        ]
-      },
-      "apps": [],
-      "interrupted": false,
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_96870527",
-      "id": "20221123-191651_248994621",
-      "dateCreated": "2022-10-10T20:28:21+0000",
-      "dateStarted": "2023-04-27T16:44:45+0000",
-      "dateFinished": "2023-04-27T16:45:02+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:46"
-    },
-    {
-      "text": "%python\n#compare 1-2 family homes to rental properties\nquery = \"\"\"\n    select transaction_id, sale_price, XCOORD, YCOORD, building_class_category from brooklyn_v1 where (XCOORD > 0) and (YCOORD > 0) and (SALE_PRICE > 1.0)\n\"\"\"\ndf = oml.sync(query=query).pull()\nidx = (df.BUILDING_CLASS_CATEGORY == '02 TWO FAMILY HOMES') | (df.BUILDING_CLASS_CATEGORY == '01 ONE FAMILY HOMES')\ndf.loc[idx, 'multi_family'] = '1-2'\nidx = (df.BUILDING_CLASS_CATEGORY == '10  COOPS - ELEVATOR APARTMENTS') | (df.BUILDING_CLASS_CATEGORY == '03 THREE FAMILY HOMES') \\\n    | (df.BUILDING_CLASS_CATEGORY == '07  RENTALS - WALKUP APARTMENTS')  | (df.BUILDING_CLASS_CATEGORY == '09  COOPS - WALKUP APARTMENTS') \\\n    | (df.BUILDING_CLASS_CATEGORY == '14  RENTALS - 4-10 UNIT')\ndf.loc[idx, 'multi_family'] = 'rentals'\nprint (df.BUILDING_CLASS_CATEGORY.value_counts().head(12))\nprint (df.multi_family.value_counts())",
-      "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:45:03+0000",
-      "progress": 0,
-      "config": {
-        "editorSetting": {
-          "language": "text",
-          "editOnDblClick": false
-        },
-        "colWidth": 12,
-        "editorMode": "ace/mode/undefined",
         "fontSize": 9,
         "results": {
           "0": {
@@ -481,8 +438,26 @@
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
+                      "TRANSACTION_ID": "number",
                       "BUILDING_CLASS_CATEGORY": "string",
-                      "N": "number"
+                      "GROSS_SQFT": "number",
+                      "BUILDING_CLASS_AT_SALE": "string",
+                      "SALE_PRICE": "number",
+                      "SALE_DATE": "date",
+                      "YEAR_STR": "number",
+                      "QUARTER": "number",
+                      "ADDRESS_": "string",
+                      "YEARBUILT": "number",
+                      "SCHOOLDIST": "number",
+                      "SANITDISTR": "number",
+                      "NUMFLOORS": "number",
+                      "ASSESSTOT": "number",
+                      "XCOORD": "number",
+                      "YCOORD": "number",
+                      "LAND_SQFT": "number",
+                      "ASSESSLAND": "number",
+                      "LOTFRONT": "number",
+                      "SHAPE_LENG": "number"
                     },
                     "updated": false
                   },
@@ -506,6 +481,120 @@
         "params": {},
         "forms": {}
       },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1683864146015_451887255",
+      "id": "paragraph_1683864146015_451887255",
+      "dateCreated": "2023-05-12T04:02:26+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:9787",
+      "dateFinished": "2023-05-12T04:26:01+0000",
+      "dateStarted": "2023-05-12T04:25:50+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nPL/SQL procedure successfully completed.\n\n\n---------------------------\n\nTable BROOKLYN_V0 created.\n\n\n---------------------------\nCOUNT(*)   \n    390883 \n\n\n\n---------------------------\n"
+          }
+        ]
+      }
+    },
+    {
+      "title": "derive additional features and drop unnecessary fields",
+      "text": "%script\n--drop undesired columns, extract year,quarter, building age, and cast ResidFar and CT2010 as numbers\nbegin execute immediate 'drop table brooklyn_v1'; exception when others then null; end;\n/\nCREATE table brooklyn_v1 AS \n    (SELECT \n    record_no as transaction_id, building_class_category, gross_sqft, building_class_at_sale, sale_price, sale_date,\n    to_char(extract(year from to_date(sale_date, 'YYYY-MM-DD'))) as year_str, \n    to_char(to_date(sale_date, 'YYYY-MM-DD'), 'Q') as quarter,\n    address_, YearBuilt,\n    extract(year from to_date(sale_date, 'YYYY-MM-DD')) -  to_number(YearBuilt) as Age_years,\n    to_number(ResidFar) as ResidFar,\n    case \n        when (CT2010 = 'NA') then 0 \n        else to_number(CT2010) end \n        as CT2010,\n    SchoolDist, SanitDistr, NumFloors, AssessTot, XCoord, YCoord, LAND_SQFT, AssessLand, LotFront, SHAPE_Leng\n    FROM admin.brooklyn_sales\n    where (to_number(YearBuilt) >= 1800));\n    \nselect count(*) from brooklyn_v1;",
+      "user": "MLUSER",
+      "dateUpdated": "2023-05-12T04:12:04+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "plsql",
+          "editOnDblClick": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/plsql",
+        "fontSize": 9,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nPL/SQL procedure successfully completed.\n\n\n---------------------------\n\nError starting at line : 5 in command -\nCREATE table brooklyn_v1 AS \n    (SELECT \n    record_no as transaction_id, building_class_category, gross_sqft, building_class_at_sale, sale_price, sale_date,\n    to_char(extract(year from to_date(sale_date, 'YYYY-MM-DD'))) as year_str, \n    to_char(to_date(sale_date, 'YYYY-MM-DD'), 'Q') as quarter,\n    address_, YearBuilt,\n    extract(year from to_date(sale_date, 'YYYY-MM-DD')) -  to_number(YearBuilt) as Age_years,\n    to_number(ResidFar) as ResidFar,\n    case \n        when (CT2010 = 'NA') then 0 \n        else to_number(CT2010) end \n        as CT2010,\n    SchoolDist, SanitDistr, NumFloors, AssessTot, XCoord, YCoord, LAND_SQFT, AssessLand, LotFront, SHAPE_Leng\n    FROM admin.brooklyn_sales\n    where (to_number(YearBuilt) >= 1800))\nError report -\nORA-00904: \"RECORD_NO\": invalid identifier\n\n\n---------------------------\n\nError starting at line : 21 in command -\nselect count(*) from brooklyn_v1\nError at Command Line : 21 Column : 22\nError report -\nSQL Error: ORA-00942: table or view does not exist\n\n\n---------------------------\n"
+          }
+        ]
+      },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1683862361596_714205475",
+      "id": "20230512-033241_661180240",
+      "dateCreated": "2022-10-10T20:28:21+0000",
+      "dateStarted": "2023-05-12T04:02:08+0000",
+      "dateFinished": "2023-05-12T04:02:08+0000",
+      "status": "ERROR",
+      "$$hashKey": "object:46"
+    },
+    {
+      "text": "%python\n#compare 1-2 family homes to rental properties\nquery = \"\"\"\n    select transaction_id, sale_price, XCOORD, YCOORD, building_class_category from brooklyn_v1 where (XCOORD > 0) and (YCOORD > 0) and (SALE_PRICE > 1.0)\n\"\"\"\ndf = oml.sync(query=query).pull()\nidx = (df.BUILDING_CLASS_CATEGORY == '02 TWO FAMILY HOMES') | (df.BUILDING_CLASS_CATEGORY == '01 ONE FAMILY HOMES')\ndf.loc[idx, 'multi_family'] = '1-2'\nidx = (df.BUILDING_CLASS_CATEGORY == '10  COOPS - ELEVATOR APARTMENTS') | (df.BUILDING_CLASS_CATEGORY == '03 THREE FAMILY HOMES') \\\n    | (df.BUILDING_CLASS_CATEGORY == '07  RENTALS - WALKUP APARTMENTS')  | (df.BUILDING_CLASS_CATEGORY == '09  COOPS - WALKUP APARTMENTS') \\\n    | (df.BUILDING_CLASS_CATEGORY == '14  RENTALS - 4-10 UNIT')\ndf.loc[idx, 'multi_family'] = 'rentals'\nprint (df.BUILDING_CLASS_CATEGORY.value_counts().head(12))\nprint (df.multi_family.value_counts())",
+      "user": "MLUSER",
+      "dateUpdated": "2023-04-27T16:45:03+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/undefined",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
+              "setting": {
+                "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "BUILDING_CLASS_CATEGORY": "string",
+                      "N": "number"
+                    },
+                    "updated": false
+                  },
+                  "updated": false
+                }
+              }
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
       "results": {
         "code": "SUCCESS",
         "msg": [
@@ -519,8 +608,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1682526272648_1578572233",
-      "id": "paragraph_1682526272648_1578572233",
+      "jobName": "paragraph_1683862361596_1684250714",
+      "id": "20230512-033241_1414396843",
       "dateCreated": "2023-04-26T16:24:32+0000",
       "dateStarted": "2023-04-27T16:45:04+0000",
       "dateFinished": "2023-04-27T16:45:05+0000",
@@ -560,8 +649,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1682527382393_348305472",
-      "id": "paragraph_1682527382393_348305472",
+      "jobName": "paragraph_1683862361596_-579941698",
+      "id": "20230512-033241_1811814262",
       "dateCreated": "2023-04-26T16:43:02+0000",
       "dateStarted": "2023-04-27T16:45:09+0000",
       "dateFinished": "2023-04-27T16:45:09+0000",
@@ -603,8 +692,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_299374040",
-      "id": "20221123-191651_1813683993",
+      "jobName": "paragraph_1683862361596_1438491235",
+      "id": "20230512-033241_864865862",
       "dateCreated": "2022-10-10T20:51:59+0000",
       "dateStarted": "2023-04-27T16:45:10+0000",
       "dateFinished": "2023-04-27T16:45:10+0000",
@@ -646,8 +735,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_1625664809",
-      "id": "20221123-191651_1208134306",
+      "jobName": "paragraph_1683862361596_-1391497515",
+      "id": "20230512-033241_1392481576",
       "dateCreated": "2022-10-10T22:05:40+0000",
       "dateStarted": "2023-04-27T16:45:10+0000",
       "dateFinished": "2023-04-27T16:45:15+0000",
@@ -689,8 +778,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_-366716761",
-      "id": "20221123-191651_1437250552",
+      "jobName": "paragraph_1683862361596_-1258786701",
+      "id": "20230512-033241_1775545471",
       "dateCreated": "2022-10-11T05:25:56+0000",
       "dateStarted": "2023-04-27T16:45:16+0000",
       "dateFinished": "2023-04-27T16:45:18+0000",
@@ -716,135 +805,135 @@
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
               "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
               "setting": {
                 "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
-                      "RECORD_NO": "number",
-                      "NEIGHBORHOOD": "string",
-                      "BUILDING_CLASS_CATEGORY": "string",
-                      "ZIPCODE": "number",
-                      "GROSS_SQFT": "number",
-                      "BUILDING_CLASS_AT_SALE": "string",
-                      "SALE_PRICE": "number",
-                      "SALE_DATE": "date",
-                      "AGE_YEARS": "number",
-                      "YEAR_": "number",
-                      "YEAR_STR": "number",
-                      "QUARTER_": "number",
-                      "MONTH": "number",
-                      "DAY": "number",
-                      "DAY_OF_WEEK": "number",
-                      "ADDRESS2": "number",
-                      "ADDRESS3": "string",
-                      "YEARBUILT": "number",
-                      "YEARALTER1": "number",
-                      "YEARS_SINCE_ALTER1": "number",
-                      "CT2010": "number",
-                      "CB2010": "number",
-                      "CD": "number",
-                      "SCHOOLDIST": "number",
-                      "COUNCIL": "number",
-                      "FIRECOMP": "string",
-                      "POLICEPRCT": "number",
-                      "HEALTHCENT": "number",
-                      "HEALTHAREA": "number",
-                      "SANITDISTR": "number",
-                      "SANITSUB": "string",
-                      "ZONEDIST1": "string",
-                      "BLDGAREA": "number",
-                      "RESAREA": "number",
-                      "NUMFLOORS": "number",
-                      "UNITSRES": "number",
-                      "UNITSTOTAL": "number",
-                      "BSMTCODE": "number",
-                      "ASSESSTOT": "number",
-                      "BUILTFAR": "number",
-                      "RESIDFAR": "number",
-                      "FACILFAR": "number",
-                      "TRACT2010": "number",
-                      "XCOORD": "number",
-                      "ZONEMAP": "string",
-                      "TAXMAP": "number",
-                      "BUILDING_CLASS": "string",
                       "EXT": "string",
-                      "NUMBLDGS": "number",
-                      "BLDGFRONT": "number",
-                      "YCOORD": "number",
-                      "LAND_SQFT": "number",
-                      "LOTAREA": "number",
-                      "BLDGCLASS": "string",
-                      "RESIDENTIAL_UNITS": "number",
-                      "ASSESSLAND": "number",
-                      "BLDGDEPTH": "number",
-                      "YEAR_BUILT": "number",
-                      "SHAPE_AREA": "number",
-                      "LOTFRONT": "number",
-                      "SHAPE_LENG": "number",
-                      "TOTAL_UNITS": "number",
-                      "LOTDEPTH": "number",
-                      "LANDUSE": "number",
-                      "PROXCODE": "number",
-                      "EXEMPTTOT": "number",
-                      "EXEMPTLAND": "number",
-                      "EASEMENTS": "number",
-                      "ZONEDIST4": "string",
-                      "GARAGEAREA": "number",
-                      "OTHERAREA": "number",
-                      "STRGEAREA": "number",
-                      "APARTMENT_NUMBER": "number",
-                      "APPBBL": "number",
-                      "APPDATE": "string",
-                      "AREASOURCE": "number",
-                      "BBL": "number",
-                      "BLOCK": "number",
+                      "MONTH": "number",
+                      "COMAREA": "number",
                       "EDESIGNUM": "string",
-                      "FIRM07_FLA": "string",
-                      "HISTDIST": "string",
-                      "IRRLOTCODE": "string",
-                      "LANDMARK": "string",
-                      "LOT": "number",
+                      "TRACT2010": "number",
                       "LOTTYPE": "number",
-                      "LTDHEIGHT": "string",
-                      "MAPPLUTO_F": "number",
-                      "OVERLAY1": "string",
-                      "OVERLAY2": "string",
-                      "OWNERNAME": "string",
-                      "OWNERTYPE": "string",
-                      "PFIRM15_FL": "string",
-                      "SANBORN": "string",
-                      "SANITBORO": "number",
-                      "SPDIST1": "string",
                       "SPDIST2": "string",
-                      "SPLITZONE": "string",
+                      "SPDIST1": "string",
+                      "RAN_NUM": "number",
+                      "HEALTHCENT": "number",
+                      "LOTDEPTH": "number",
+                      "BBL": "number",
                       "TAX_CLASS": "number",
+                      "BLDGFRONT": "number",
+                      "QUARTER_": "number",
+                      "YEAR_BUILT": "number",
+                      "COMMFAR": "number",
+                      "APPBBL": "number",
+                      "RESAREA": "number",
+                      "EXEMPTTOT": "number",
+                      "FACTRYAREA": "number",
+                      "BLDGAREA": "number",
+                      "ASSESSTOT": "number",
+                      "SCHOOLDIST": "number",
+                      "LOT": "number",
+                      "AREASOURCE": "number",
+                      "LANDUSE": "number",
+                      "NUMBLDGS": "number",
+                      "OVERLAY2": "string",
+                      "DAY_OF_WEEK": "number",
+                      "ZONEMAP": "string",
+                      "PROXCODE": "number",
+                      "OVERLAY1": "string",
+                      "PFIRM15_FL": "string",
+                      "BUILDING_CLASS_AT_SALE": "string",
+                      "RECORD_NO": "number",
+                      "RETAILAREA": "number",
+                      "LOTFRONT": "number",
+                      "ZONEDIST1": "string",
+                      "COMMERCIAL_UNITS": "number",
+                      "APPDATE": "string",
                       "ZMCODE": "string",
+                      "UNITSTOTAL": "number",
+                      "AGE_YEARS": "number",
+                      "MAPPLUTO_F": "number",
+                      "GARAGEAREA": "number",
+                      "FIRECOMP": "string",
+                      "STRGEAREA": "number",
+                      "YEARALTER1": "number",
+                      "OTHERAREA": "number",
+                      "CD": "number",
+                      "COUNCIL": "number",
+                      "SANITBORO": "number",
+                      "ZIPCODE": "number",
+                      "SALE_DATE": "date",
+                      "NUMFLOORS": "number",
                       "ZONEDIST2": "string",
                       "ZONEDIST3": "string",
-                      "FACTRYAREA": "number",
-                      "COMAREA": "number",
-                      "COMMERCIAL_UNITS": "number",
-                      "RETAILAREA": "number",
+                      "BSMTCODE": "number",
+                      "ZONEDIST4": "string",
+                      "LANDMARK": "string",
+                      "ASSESSLAND": "number",
+                      "OWNERTYPE": "string",
+                      "YEARS_SINCE_ALTER1": "number",
+                      "DAY": "number",
+                      "XCOORD": "number",
+                      "GROSS_SQFT": "number",
+                      "FACILFAR": "number",
+                      "RESIDFAR": "number",
+                      "BLDGCLASS": "string",
+                      "LAND_SQFT": "number",
                       "OFFICEAREA": "number",
-                      "COMMFAR": "number",
-                      "RAN_NUM": "number"
+                      "UNITSRES": "number",
+                      "HISTDIST": "string",
+                      "BUILDING_CLASS_CATEGORY": "string",
+                      "BUILDING_CLASS": "string",
+                      "YCOORD": "number",
+                      "BLOCK": "number",
+                      "OWNERNAME": "string",
+                      "CB2010": "number",
+                      "SHAPE_LENG": "number",
+                      "BUILTFAR": "number",
+                      "RESIDENTIAL_UNITS": "number",
+                      "EXEMPTLAND": "number",
+                      "YEAR_": "number",
+                      "CT2010": "number",
+                      "TAXMAP": "number",
+                      "LTDHEIGHT": "string",
+                      "POLICEPRCT": "number",
+                      "SANITDISTR": "number",
+                      "APARTMENT_NUMBER": "number",
+                      "SHAPE_AREA": "number",
+                      "IRRLOTCODE": "string",
+                      "FIRM07_FLA": "string",
+                      "LOTAREA": "number",
+                      "EASEMENTS": "number",
+                      "NEIGHBORHOOD": "string",
+                      "BLDGDEPTH": "number",
+                      "ADDRESS3": "string",
+                      "ADDRESS2": "number",
+                      "HEALTHAREA": "number",
+                      "SPLITZONE": "string",
+                      "YEARBUILT": "number",
+                      "SANITSUB": "string",
+                      "TOTAL_UNITS": "number",
+                      "SALE_PRICE": "number",
+                      "SANBORN": "string",
+                      "YEAR_STR": "number"
                     },
                     "updated": false
                   },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
+                  "updated": false
                 }
-              },
-              "commonSetting": {}
+              }
             }
           }
         },
@@ -867,8 +956,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_599284264",
-      "id": "20221123-191651_1628443843",
+      "jobName": "paragraph_1683862361596_-1765224915",
+      "id": "20230512-033241_1921667988",
       "dateCreated": "2022-10-23T02:02:19+0000",
       "dateStarted": "2023-04-27T16:45:19+0000",
       "dateFinished": "2023-04-27T16:45:22+0000",
@@ -905,8 +994,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_651331916",
-      "id": "20221123-191651_79711118",
+      "jobName": "paragraph_1683862361596_1304299911",
+      "id": "20230512-033241_656493949",
       "dateCreated": "2022-11-07T16:13:04+0000",
       "dateStarted": "2023-04-27T16:45:22+0000",
       "dateFinished": "2023-04-27T16:45:22+0000",
@@ -948,8 +1037,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_1017865614",
-      "id": "20221123-191651_1696770012",
+      "jobName": "paragraph_1683862361596_-971294201",
+      "id": "20230512-033241_165272164",
       "dateCreated": "2022-10-29T21:06:42+0000",
       "dateStarted": "2023-04-27T16:45:23+0000",
       "dateFinished": "2023-04-27T16:45:23+0000",
@@ -975,50 +1064,50 @@
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
               "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
               "setting": {
                 "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
-                      "TRANSACTION_ID": "number",
-                      "GROSS_SQFT": "number",
-                      "BUILDING_CLASS_AT_SALE": "string",
-                      "SALE_PRICE": "number",
-                      "SALE_DATE": "date",
-                      "YEAR_STR": "number",
-                      "QUARTER": "number",
-                      "ADDRESS_": "string",
-                      "YEARBUILT": "number",
-                      "AGE_YEARS": "number",
-                      "RESIDFAR": "number",
-                      "CT2010": "number",
-                      "SCHOOLDIST": "number",
-                      "SANITDISTR": "number",
-                      "NUMFLOORS": "number",
-                      "ASSESSTOT": "number",
                       "XCOORD": "number",
-                      "YCOORD": "number",
-                      "LAND_SQFT": "number",
-                      "ASSESSLAND": "number",
+                      "CT2010": "number",
                       "LOTFRONT": "number",
+                      "YEARBUILT": "number",
+                      "GROSS_SQFT": "number",
+                      "SALE_DATE": "date",
+                      "ASSESSTOT": "number",
+                      "YCOORD": "number",
+                      "RESIDFAR": "number",
+                      "NUMFLOORS": "number",
+                      "ADDRESS_": "string",
+                      "SANITDISTR": "number",
+                      "SCHOOLDIST": "number",
+                      "LAND_SQFT": "number",
+                      "SALE_PRICE": "number",
+                      "AGE_YEARS": "number",
+                      "QUARTER": "number",
+                      "ASSESSLAND": "number",
+                      "TTV": "string",
                       "SHAPE_LENG": "number",
-                      "TTV": "string"
+                      "TRANSACTION_ID": "number",
+                      "BUILDING_CLASS_AT_SALE": "string",
+                      "YEAR_STR": "number"
                     },
                     "updated": false
                   },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
+                  "updated": false
                 }
-              },
-              "commonSetting": {}
+              }
             }
           }
         },
@@ -1041,8 +1130,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1676050730402_808174579",
-      "id": "paragraph_1676050730402_808174579",
+      "jobName": "paragraph_1683862361596_-735192930",
+      "id": "20230512-033241_1159870580",
       "dateCreated": "2023-02-10T17:38:50+0000",
       "dateStarted": "2023-04-27T16:45:24+0000",
       "dateFinished": "2023-04-27T16:45:27+0000",
@@ -1084,8 +1173,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_415853783",
-      "id": "20221123-191651_1770641666",
+      "jobName": "paragraph_1683862361596_-864365968",
+      "id": "20230512-033241_1704252855",
       "dateCreated": "2022-10-13T21:06:24+0000",
       "dateStarted": "2023-04-27T16:45:29+0000",
       "dateFinished": "2023-04-27T16:45:37+0000",
@@ -1127,8 +1216,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_1348302940",
-      "id": "20221123-191651_1126597148",
+      "jobName": "paragraph_1683862361596_1029321282",
+      "id": "20230512-033241_1215506141",
       "dateCreated": "2022-10-11T05:53:36+0000",
       "dateStarted": "2023-04-27T16:45:37+0000",
       "dateFinished": "2023-04-27T16:45:37+0000",
@@ -1168,8 +1257,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1676053435396_479064657",
-      "id": "paragraph_1676053435396_479064657",
+      "jobName": "paragraph_1683862361596_-1776627657",
+      "id": "20230512-033241_264167245",
       "dateCreated": "2023-02-10T18:23:55+0000",
       "dateStarted": "2023-04-27T16:45:37+0000",
       "dateFinished": "2023-04-27T16:45:47+0000",
@@ -1195,46 +1284,46 @@
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
               "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
               "setting": {
                 "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
                   "tableGridState": {},
                   "tableColumnTypeState": {
                     "names": {
-                      "TRANSACTION_ID": "number",
-                      "GROSS_SQFT": "number",
-                      "BUILDING_CLASS_AT_SALE": "string",
-                      "SALE_PRICE": "number",
-                      "YEAR_STR": "number",
-                      "QUARTER": "number",
-                      "AGE_YEARS": "number",
-                      "RESIDFAR": "number",
-                      "CT2010": "number",
-                      "SCHOOLDIST": "number",
-                      "SANITDISTR": "number",
-                      "NUMFLOORS": "number",
-                      "ASSESSTOT": "number",
                       "XCOORD": "number",
-                      "YCOORD": "number",
-                      "LAND_SQFT": "number",
-                      "ASSESSLAND": "number",
+                      "CT2010": "number",
                       "LOTFRONT": "number",
-                      "SHAPE_LENG": "number"
+                      "GROSS_SQFT": "number",
+                      "ASSESSTOT": "number",
+                      "YCOORD": "number",
+                      "RESIDFAR": "number",
+                      "NUMFLOORS": "number",
+                      "SANITDISTR": "number",
+                      "SCHOOLDIST": "number",
+                      "LAND_SQFT": "number",
+                      "SALE_PRICE": "number",
+                      "AGE_YEARS": "number",
+                      "QUARTER": "number",
+                      "ASSESSLAND": "number",
+                      "SHAPE_LENG": "number",
+                      "TRANSACTION_ID": "number",
+                      "BUILDING_CLASS_AT_SALE": "string",
+                      "YEAR_STR": "number"
                     },
                     "updated": false
                   },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
+                  "updated": false
                 }
-              },
-              "commonSetting": {}
+              }
             }
           }
         },
@@ -1257,8 +1346,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_297740055",
-      "id": "20221123-191651_860541411",
+      "jobName": "paragraph_1683862361596_656927499",
+      "id": "20230512-033241_1527494486",
       "dateCreated": "2022-11-01T21:15:32+0000",
       "dateStarted": "2023-04-27T16:45:47+0000",
       "dateFinished": "2023-04-27T16:45:47+0000",
@@ -1284,306 +1373,306 @@
           "0": {
             "graph": {
               "mode": "table",
-              "height": 300,
               "optionOpen": false,
+              "commonSetting": {},
+              "height": 300,
               "setting": {
                 "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
                   "tableGridState": {
-                    "columns": [
-                      {
-                        "name": "ADDRESS_0",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "AIN1",
-                        "visible": true,
-                        "width": 150,
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "TRANSACTION_ID2",
-                        "visible": true,
-                        "width": 171,
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "GROSS_SQFT3",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "BUILDING_CLASS_AT_SALE4",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "SALE_PRICE5",
-                        "visible": true,
-                        "width": 150,
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "SALE_DATE6",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "YEAR_STR7",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "QUARTER8",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "YEARBUILT9",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "AGE_YEARS10",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "RESIDFAR11",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "CT201012",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "SCHOOLDIST13",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "SANITDISTR14",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "NUMFLOORS15",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "ASSESSTOT16",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "XCOORD17",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "YCOORD18",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "LAND_SQFT19",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "ASSESSLAND20",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "LOTFRONT21",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "SHAPE_LENG22",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      },
-                      {
-                        "name": "RAN_NUM23",
-                        "visible": true,
-                        "width": "*",
-                        "sort": {},
-                        "filters": [
-                          {}
-                        ],
-                        "pinned": ""
-                      }
-                    ],
                     "scrollFocus": {},
-                    "selection": [],
-                    "grouping": {
-                      "grouping": [],
-                      "aggregations": [],
-                      "rowExpandedStates": {}
-                    },
                     "treeView": {},
                     "pagination": {
                       "paginationCurrentPage": 1,
                       "paginationPageSize": 250
+                    },
+                    "selection": [],
+                    "columns": [
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "ADDRESS_0",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "AIN1",
+                        "width": 150,
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "TRANSACTION_ID2",
+                        "width": 171,
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "GROSS_SQFT3",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "BUILDING_CLASS_AT_SALE4",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "SALE_PRICE5",
+                        "width": 150,
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "SALE_DATE6",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "YEAR_STR7",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "QUARTER8",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "YEARBUILT9",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "AGE_YEARS10",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "RESIDFAR11",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "CT201012",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "SCHOOLDIST13",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "SANITDISTR14",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "NUMFLOORS15",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "ASSESSTOT16",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "XCOORD17",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "YCOORD18",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "LAND_SQFT19",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "ASSESSLAND20",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "LOTFRONT21",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "SHAPE_LENG22",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      },
+                      {
+                        "pinned": "",
+                        "visible": true,
+                        "name": "RAN_NUM23",
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ]
+                      }
+                    ],
+                    "grouping": {
+                      "rowExpandedStates": {},
+                      "grouping": [],
+                      "aggregations": []
                     }
                   },
                   "tableColumnTypeState": {
                     "names": {
-                      "ADDRESS_": "string",
-                      "AIN": "number",
-                      "TRANSACTION_ID": "number",
-                      "GROSS_SQFT": "number",
-                      "BUILDING_CLASS_AT_SALE": "string",
-                      "SALE_PRICE": "number",
-                      "SALE_DATE": "date",
-                      "YEAR_STR": "number",
-                      "QUARTER": "number",
-                      "YEARBUILT": "number",
-                      "AGE_YEARS": "number",
-                      "RESIDFAR": "number",
-                      "CT2010": "number",
-                      "SCHOOLDIST": "number",
-                      "SANITDISTR": "number",
-                      "NUMFLOORS": "number",
-                      "ASSESSTOT": "number",
                       "XCOORD": "number",
-                      "YCOORD": "number",
-                      "LAND_SQFT": "number",
-                      "ASSESSLAND": "number",
+                      "CT2010": "number",
                       "LOTFRONT": "number",
+                      "AIN": "number",
+                      "YEARBUILT": "number",
+                      "RAN_NUM": "number",
+                      "GROSS_SQFT": "number",
+                      "SALE_DATE": "date",
+                      "ASSESSTOT": "number",
+                      "YCOORD": "number",
+                      "RESIDFAR": "number",
+                      "NUMFLOORS": "number",
+                      "ADDRESS_": "string",
+                      "SANITDISTR": "number",
+                      "SCHOOLDIST": "number",
+                      "LAND_SQFT": "number",
+                      "SALE_PRICE": "number",
+                      "AGE_YEARS": "number",
+                      "QUARTER": "number",
+                      "ASSESSLAND": "number",
                       "SHAPE_LENG": "number",
-                      "RAN_NUM": "number"
+                      "TRANSACTION_ID": "number",
+                      "BUILDING_CLASS_AT_SALE": "string",
+                      "YEAR_STR": "number"
                     },
                     "updated": false
                   },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
+                  "updated": false
                 }
-              },
-              "commonSetting": {}
+              }
             }
           }
         },
@@ -1606,8 +1695,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1676053135874_1153370849",
-      "id": "paragraph_1676053135874_1153370849",
+      "jobName": "paragraph_1683862361596_806839743",
+      "id": "20230512-033241_410122477",
       "dateCreated": "2023-02-10T18:18:55+0000",
       "dateStarted": "2023-04-27T16:45:47+0000",
       "dateFinished": "2023-04-27T16:45:48+0000",
@@ -1631,29 +1720,28 @@
         "title": true,
         "results": {
           "0": {
+            "helium": {},
             "graph": {
               "mode": "multiBarChart",
-              "height": 300,
               "optionOpen": false,
+              "keys": [
+                {
+                  "name": "YEAR_QUARTER",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "TOTAL_SALE_PRICE",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "commonSetting": {},
+              "groups": [],
+              "height": 300,
               "setting": {
-                "table": {
-                  "tableGridState": {},
-                  "tableColumnTypeState": {
-                    "names": {
-                      "TOTAL_SALE_PRICE": "number",
-                      "YEAR_QUARTER": "number"
-                    },
-                    "updated": false
-                  },
-                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
-                  "tableOptionValue": {
-                    "useFilter": false,
-                    "showPagination": false,
-                    "showAggregationFooter": false
-                  },
-                  "updated": false,
-                  "initialized": false
-                },
                 "multiBarChart": {
                   "rotate": {
                     "degree": "-45"
@@ -1665,26 +1753,27 @@
                     "degree": "-45"
                   },
                   "xLabelStatus": "default"
+                },
+                "table": {
+                  "initialized": false,
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "showAggregationFooter": false,
+                    "showPagination": false,
+                    "useFilter": false
+                  },
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "TOTAL_SALE_PRICE": "number",
+                      "YEAR_QUARTER": "number"
+                    },
+                    "updated": false
+                  },
+                  "updated": false
                 }
-              },
-              "commonSetting": {},
-              "keys": [
-                {
-                  "name": "YEAR_QUARTER",
-                  "index": 1,
-                  "aggr": "sum"
-                }
-              ],
-              "groups": [],
-              "values": [
-                {
-                  "name": "TOTAL_SALE_PRICE",
-                  "index": 0,
-                  "aggr": "sum"
-                }
-              ]
-            },
-            "helium": {}
+              }
+            }
           }
         },
         "enabled": true
@@ -1706,8 +1795,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_679799069",
-      "id": "20221123-191651_338452289",
+      "jobName": "paragraph_1683862361596_-753243413",
+      "id": "20230512-033241_1239769328",
       "dateCreated": "2022-10-11T17:39:56+0000",
       "dateStarted": "2023-04-27T16:45:50+0000",
       "dateFinished": "2023-04-27T16:45:50+0000",
@@ -1749,8 +1838,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_-1375957078",
-      "id": "20221123-191651_1616351489",
+      "jobName": "paragraph_1683862361596_1508982242",
+      "id": "20230512-033241_819501622",
       "dateCreated": "2022-11-01T03:16:19+0000",
       "dateStarted": "2023-04-27T16:45:50+0000",
       "dateFinished": "2023-04-27T16:45:52+0000",
@@ -1792,8 +1881,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_198395530",
-      "id": "20221123-191651_68573437",
+      "jobName": "paragraph_1683862361596_-1534837492",
+      "id": "20230512-033241_921643644",
       "dateCreated": "2022-11-04T22:23:42+0000",
       "dateStarted": "2023-04-27T16:45:52+0000",
       "dateFinished": "2023-04-27T16:45:53+0000",
@@ -1803,7 +1892,7 @@
     {
       "text": "%python\n#todo: some records have YearBuilt field modulo 5 years, which biases the ML model. Randomize +-2.5 years to remove that bias",
       "user": "MLUSER",
-      "dateUpdated": "2023-04-27T16:45:53+0000",
+      "dateUpdated": "2023-05-12T04:27:40+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1828,8 +1917,8 @@
       "interrupted": false,
       "runtimeInfos": {},
       "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669231011464_86277924",
-      "id": "20221123-191651_1486163687",
+      "jobName": "paragraph_1683862361596_1366514251",
+      "id": "20230512-033241_558766812",
       "dateCreated": "2022-11-21T18:19:11+0000",
       "dateStarted": "2023-04-27T16:45:53+0000",
       "dateFinished": "2023-04-27T16:45:53+0000",
@@ -1838,14 +1927,14 @@
     }
   ],
   "name": "prep_data",
-  "id": "1769",
+  "id": "522",
   "defaultInterpreterGroup": "spark",
   "noteParams": {},
   "noteForms": {},
   "angularObjects": {},
   "config": {
-    "looknfeel": "default",
-    "personalizedMode": "false"
+    "personalizedMode": "false",
+    "looknfeel": "default"
   },
   "info": {
     "isRunning": false
