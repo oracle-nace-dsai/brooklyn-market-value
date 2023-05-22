@@ -9,7 +9,8 @@ git branch=master
 
 2 download zipped data from https://www.kaggle.com/tianhwu/brooklynhomes2003to2017 and unzip to your desktop
 
-3 that csv has columns borough & Borough and address & Address, which can cause confusion, so change those capitolized columns to Borough_, Address_.
+3 that csv has columns borough & Borough and address & Address, so change those capitolized columns to Borough_, Address_
+to avoid any confusion.
 
 4 Also change name of first column to transaction_id
 
@@ -17,7 +18,7 @@ git branch=master
 
 6 have ADB admin user load csv data into table admin.brooklyn_sales_map
 
-7 have admin user create user MLUSER
+7 have admin user create ADW user MLUSER
 
 8 have admin user grant user MLUSER select access to table admin.brooklyn_sales_map:
 
