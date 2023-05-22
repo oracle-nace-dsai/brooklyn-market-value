@@ -7,7 +7,8 @@ git branch=master
 
 1 see blog post https://url.tbd
 
-2 download zipped data from https://www.kaggle.com/tianhwu/brooklynhomes2003to2017 and unzip to your desktop
+2 download zipped data from https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/OML_Data/o/brooklyn_sales.csv
+and unzip to your desktop
 
 3 that csv has columns borough & Borough and address & Address, so change those capitolized columns to Borough_, Address_
 to avoid any confusion.
@@ -16,9 +17,9 @@ to avoid any confusion.
 
 5 launch ADB instance, I used 2ocpu ADW version 19c
 
-6 have ADB admin user load csv data into table admin.brooklyn_sales_map
+6 have ADB admin user load csv data into table admin.brooklyn_sales_map, noting that the table name=file name + _map
 
-7 have admin user create ADW user MLUSER
+7 have admin user create ADW user MLUSER with OML privledges and unlimited quota on tablespace on DATA
 
 8 have admin user grant user MLUSER select access to table admin.brooklyn_sales_map:
 
@@ -43,7 +44,7 @@ of each property's lat,long
 
 13 navigate to AutoML and create an experiment that will predict the SALE_PRICE column
 in your OML user's table brooklyn_train_filtered, with Case ID=Transaction_ID and
-model metric=R2. Press Start > Better Accuracy to train ML model
+model metric=Mean Squared Error. Press Start > Better Accuracy to train ML model
 
 13 import OML notebook validate_model.json into OML, and execute
 
@@ -55,4 +56,7 @@ model metric=R2. Press Start > Better Accuracy to train ML model
 click App Builder > Import f100.sql > Next > Next > Install
 
 17 inspect APEX dashboards per blog
+
+#https://www.kaggle.com/tianhwu/brooklynhomes2003to2017 
+
 
