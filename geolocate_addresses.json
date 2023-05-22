@@ -2,9 +2,9 @@
   "paragraphs": [
     {
       "title": "inspect address data",
-      "text": "%sql\nselect * from \n    (select address_, max(sale_price) as max_sale_price, count(address_) as N_transactions, \n        avg(xcoord) as xcoord, avg(ycoord) as ycoord from admin.brooklyn_sales_raw \n        where BUILDING_CLASS_CATEGORY in ('02 TWO FAMILY HOMES', '01 ONE FAMILY HOMES')\n        group by address_)\n    where (rownum < 7);",
+      "text": "%sql\nselect * from \n    (select address_, max(sale_price) as max_sale_price, count(address_) as N_transactions,\n        to_number(max(XCoord)) as xcoord, to_number(max(YCoord)) as ycoord\n        from admin.brooklyn_sales_map \n        where BUILDING_CLASS_CATEGORY in ('02 TWO FAMILY HOMES', '01 ONE FAMILY HOMES')\n        group by address_)\n    where (rownum < 7);",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:25:48+0000",
+      "dateUpdated": "2023-05-21T21:56:00+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -27,9 +27,9 @@
                   "tableColumnTypeState": {
                     "names": {
                       "ADDRESS_": "string",
-                      "XCOORD": "number",
-                      "YCOORD": "number",
-                      "N_TRANSACTIONS": "number"
+                      "MAX_SALE_PRICE": "number",
+                      "N_TRANSACTIONS": "number",
+                      "XCOORD": "number"
                     },
                     "updated": false
                   },
@@ -78,8 +78,8 @@
       "jobName": "paragraph_1669656176498_-214929899",
       "id": "20221128-172256_1138081903",
       "dateCreated": "2022-11-28T17:23:00+0000",
-      "dateStarted": "2023-02-27T14:25:48+0000",
-      "dateFinished": "2023-02-27T14:26:08+0000",
+      "dateStarted": "2023-05-21T21:56:00+0000",
+      "dateFinished": "2023-05-21T21:56:00+0000",
       "status": "FINISHED",
       "focus": true,
       "$$hashKey": "object:41"
@@ -88,7 +88,7 @@
       "title": "python imports",
       "text": "%python\n#standard python imports\nimport oml\nimport numpy as np\nimport pandas as pd\npd.set_option('display.max_rows', 200)\npd.set_option('display.max_columns', 200)\npd.set_option('display.width', 200)\nimport matplotlib.pyplot as plt\nplt.style.use(\"seaborn\")\ncolor_seq = plt.rcParams['axes.prop_cycle'].by_key()['color']\nsz = 14\nplt.rc('axes', labelsize=sz)\nplt.rc('xtick', labelsize=sz)\nplt.rc('ytick', labelsize=sz)\nplt.rc('legend', fontsize=sz)",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:08+0000",
+      "dateUpdated": "2023-05-21T21:56:00+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -148,16 +148,15 @@
       "jobName": "paragraph_1669656371313_1614866643",
       "id": "paragraph_1669656371313_1614866643",
       "dateCreated": "2022-11-28T17:26:11+0000",
-      "dateStarted": "2023-02-27T14:26:08+0000",
-      "dateFinished": "2023-02-27T14:26:10+0000",
+      "dateStarted": "2023-05-21T21:56:00+0000",
+      "dateFinished": "2023-05-21T21:56:00+0000",
       "status": "FINISHED",
       "$$hashKey": "object:42"
     },
     {
-      "title": "get address's x,y coordinates",
-      "text": "%python\nquery = \"\"\"\nselect * from \n    (select address_, max(sale_price) as max_sale_price, count(address_) as N_transactions, \n        avg(xcoord) as xcoord, avg(ycoord) as ycoord from admin.brooklyn_sales_raw\n        where BUILDING_CLASS_CATEGORY in ('02 TWO FAMILY HOMES', '01 ONE FAMILY HOMES')\n        group by address_)\n    where (xcoord > 123456) and (ycoord > 123456)\n\"\"\"\nproxy = oml.sync(query=query)\nprint ('proxy.shape = ', proxy.shape)\nxy = proxy\nxy.head()",
+      "text": "%python\nquery = \"\"\"\nselect * from \n    (select address_, max(sale_price) as max_sale_price, avg(to_number(xcoord)) as xcoord, avg(to_number(ycoord)) as ycoord, \n        count(address_) as N_transactions from \n            (select address_, sale_price, xcoord, ycoord, BUILDING_CLASS_CATEGORY from admin.brooklyn_sales_map \n                where (XCOORD != 'NA') and (YCOORD != 'NA') and BUILDING_CLASS_CATEGORY in ('02 TWO FAMILY HOMES', '01 ONE FAMILY HOMES'))\n        group by address_\n    ) where (xcoord > 123456) and (ycoord > 123456)\n\"\"\"\nproxy = oml.sync(query=query)\nprint ('proxy.shape = ', proxy.shape)\nxy = proxy\nxy.head()",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:10+0000",
+      "dateUpdated": "2023-05-21T21:56:01+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -167,7 +166,6 @@
         "colWidth": 12,
         "editorMode": "ace/mode/undefined",
         "fontSize": 9,
-        "title": true,
         "results": {},
         "enabled": true
       },
@@ -175,32 +173,33 @@
         "params": {},
         "forms": {}
       },
+      "apps": [],
+      "interrupted": false,
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1684705370368_1480803185",
+      "id": "paragraph_1684705370368_1480803185",
+      "dateCreated": "2023-05-21T21:42:50+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:5081",
+      "dateFinished": "2023-05-21T21:56:03+0000",
+      "dateStarted": "2023-05-21T21:56:01+0000",
       "results": {
         "code": "SUCCESS",
         "msg": [
           {
             "type": "TEXT",
-            "data": "proxy.shape =  (93996, 5)\n                ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS   XCOORD  YCOORD\n0  1050 MANHATTAN AVENUE        18000000               1   996809  206963\n1      104 WILLOW STREET        10625000               3   985407  193551\n2    3542 BEDFORD AVENUE        10000000               1   998040  163601\n3           430 AVENUE T         8600000               2   992777  157679\n4    702 EAST 103 STREET         8150000               1  1012625  175231\n"
+            "data": "proxy.shape =  (93996, 5)\n                ADDRESS_  MAX_SALE_PRICE  XCOORD  YCOORD  N_TRANSACTIONS\n0  1050 MANHATTAN AVENUE        18000000  996809  206963               1\n1      104 WILLOW STREET        10625000  985407  193551               3\n2    3542 BEDFORD AVENUE        10000000  998040  163601               1\n3       295 HENRY STREET         7630000  985492  191257               1\n4           430 AVENUE T         8600000  992777  157679               2\n"
           }
         ]
-      },
-      "apps": [],
-      "interrupted": false,
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1669656412142_1505934238",
-      "id": "paragraph_1669656412142_1505934238",
-      "dateCreated": "2022-11-28T17:26:52+0000",
-      "dateStarted": "2023-02-27T14:26:10+0000",
-      "dateFinished": "2023-02-27T14:26:41+0000",
-      "status": "FINISHED",
-      "$$hashKey": "object:43"
+      }
     },
     {
       "title": "plot addresses X,Y coords",
       "text": "%python\ndf = xy.pull()\nfig, ax = plt.subplots(1, 1, figsize=(8,8))\nxp = df.XCOORD/1.0e6\nyp = df.YCOORD/1.0e6\ncolor = color_seq[0]\np = ax.plot(xp, yp, linestyle='none', marker='o', markersize=1.5, alpha=1, color=color)\np = ax.set_xlabel(r'XCOORD    ($10^6$)')\np = ax.set_ylabel(r'YCOORD    ($10^6$)')",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:41+0000",
+      "dateUpdated": "2023-05-21T21:56:03+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -234,8 +233,8 @@
       "jobName": "paragraph_1669660313799_418006784",
       "id": "paragraph_1669660313799_418006784",
       "dateCreated": "2022-11-28T18:31:53+0000",
-      "dateStarted": "2023-02-27T14:26:41+0000",
-      "dateFinished": "2023-02-27T14:26:52+0000",
+      "dateStarted": "2023-05-21T21:56:03+0000",
+      "dateFinished": "2023-05-21T21:56:04+0000",
       "status": "FINISHED",
       "$$hashKey": "object:44"
     },
@@ -243,7 +242,7 @@
       "title": "show a few random addresses",
       "text": "%python\ndf.sample(5)",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:52+0000",
+      "dateUpdated": "2023-05-21T21:56:04+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -266,7 +265,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "                  ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS    XCOORD    YCOORD\n36334  2129 EAST 22 STREET          980000               2  998389.0  157590.0\n38021       660 RUGBY ROAD          650000               2  994201.0  170040.0\n2138        8872 19 AVENUE          735000               1  982494.0  158120.0\n3964         537 47 STREET          515000               1  982209.0  174751.0\n77405   455A MYRTLE AVENUE          850000               2  993313.0  191941.0\n"
+            "data": "                   ADDRESS_  MAX_SALE_PRICE     XCOORD    YCOORD  N_TRANSACTIONS\n55276    220 ADELPHI STREET          850000   992086.0  191038.0               1\n8359   565 CLEVELAND STREET               0  1016657.0  183619.0               1\n62523        37 LAKE STREET          585000   991764.0  159082.0               2\n61445    2144 WEST 6 STREET          556000   990456.0  156191.0               3\n46440   1332 EAST 37 STREET               0  1000969.0  166433.0               1\n"
           }
         ]
       },
@@ -277,8 +276,8 @@
       "jobName": "paragraph_1669661313952_646697735",
       "id": "paragraph_1669661313952_646697735",
       "dateCreated": "2022-11-28T18:48:33+0000",
-      "dateStarted": "2023-02-27T14:26:52+0000",
-      "dateFinished": "2023-02-27T14:26:52+0000",
+      "dateStarted": "2023-05-21T21:56:05+0000",
+      "dateFinished": "2023-05-21T21:56:05+0000",
       "status": "FINISHED",
       "$$hashKey": "object:45"
     },
@@ -286,7 +285,7 @@
       "title": "use google maps to geolocate  7 addresses",
       "text": "%python\nd0 = {'ADDRESS_':'1459 EAST 69 STREET',     'latitute':40.621213132132766, 'longitude':-73.91038456062674}\nd1 = {'ADDRESS_':'66 HIGHLAND BOULEVARD',   'latitute':40.67957088022369,  'longitude':-73.89807965084381}\nd2 = {'ADDRESS_':'2521 AVENUE J',           'latitute':40.62675467912118,  'longitude':-73.95038273179011}\nd3 = {'ADDRESS_':'6216 12 AVENUE',          'latitute':40.62888890515321,  'longitude':-74.00182768575309}\nd4 = {'ADDRESS_':'1710 SHORE BOULEVARD',    'latitute':40.58074569203452,  'longitude':-73.93715483316956}\nd5 = {'ADDRESS_':'978 THOMAS S BOYLAND ST', 'latitute':40.656546767491605, 'longitude':-73.91000287411629}\nd6 = {'ADDRESS_':'537 HART STREET',         'latitute':40.696795690890866, 'longitude':-73.92971293735248}\ndata = [d0, d1, d2, d3, d4, d5, d6]\ndf = pd.DataFrame(data)\ngeolocate_train = oml.push(df)\ngeolocate_train",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:52+0000",
+      "dateUpdated": "2023-05-21T21:56:05+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -320,8 +319,8 @@
       "jobName": "paragraph_1669661562177_878298273",
       "id": "paragraph_1669661562177_878298273",
       "dateCreated": "2022-11-28T18:52:42+0000",
-      "dateStarted": "2023-02-27T14:26:56+0000",
-      "dateFinished": "2023-02-27T14:26:56+0000",
+      "dateStarted": "2023-05-21T21:56:05+0000",
+      "dateFinished": "2023-05-21T21:56:05+0000",
       "status": "FINISHED",
       "$$hashKey": "object:46"
     },
@@ -329,7 +328,7 @@
       "title": "get lat,long for reference address",
       "text": "%python\ndf = geolocate_train.pull()\nreference_address = '2521 AVENUE J'\nprint ('reference_address = ', reference_address)\nidx = (df.ADDRESS_ == reference_address)\nprint (df[idx])\nlatitute_ref = df[idx].latitute.values[0]\nlongitude_ref = df[idx].longitude.values[0]\nprint ('latitute_ref = ', latitute_ref)\nprint ('longitude_ref = ', longitude_ref)",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:56+0000",
+      "dateUpdated": "2023-05-21T21:56:05+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -363,8 +362,8 @@
       "jobName": "paragraph_1669781187415_1652721177",
       "id": "paragraph_1669781187415_1652721177",
       "dateCreated": "2022-11-30T04:06:27+0000",
-      "dateStarted": "2023-02-27T14:26:59+0000",
-      "dateFinished": "2023-02-27T14:26:59+0000",
+      "dateStarted": "2023-05-21T21:56:05+0000",
+      "dateFinished": "2023-05-21T21:56:06+0000",
       "status": "FINISHED",
       "$$hashKey": "object:47"
     },
@@ -372,7 +371,7 @@
       "title": "compute relative lat, long",
       "text": "%python\nproxy = geolocate_train\ndelta_latitute = proxy['latitute'] - latitute_ref\nproxy = proxy.concat({'delta_latitute':delta_latitute})\ndelta_longitude = proxy['longitude'] - longitude_ref\nproxy = proxy.concat({'delta_longitude':delta_longitude})\ngeolocate_train = proxy\ngeolocate_train",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:59+0000",
+      "dateUpdated": "2023-05-21T21:56:06+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -406,8 +405,8 @@
       "jobName": "paragraph_1669695158206_143493465",
       "id": "paragraph_1669695158206_143493465",
       "dateCreated": "2022-11-29T04:12:38+0000",
-      "dateStarted": "2023-02-27T14:26:59+0000",
-      "dateFinished": "2023-02-27T14:26:59+0000",
+      "dateStarted": "2023-05-21T21:56:06+0000",
+      "dateFinished": "2023-05-21T21:56:06+0000",
       "status": "FINISHED",
       "$$hashKey": "object:48"
     },
@@ -415,7 +414,7 @@
       "title": "compute relative X,Y",
       "text": "%python\nproxy = xy\ndf = proxy.pull()\nprint ('reference_address = ', reference_address)\nidx = (df.ADDRESS_ == reference_address)\nprint (df[idx])\nXCOORD_reference = df[idx].XCOORD.values[0]\nYCOORD_reference = df[idx].YCOORD.values[0]\nprint ('XCOORD_reference = ', XCOORD_reference)\nprint ('YCOORD_reference = ', YCOORD_reference)\ndelta_XCOORD = (proxy['XCOORD'] - XCOORD_reference) + 0.1\nproxy = proxy.concat({'delta_XCOORD':delta_XCOORD})\ndelta_YCOORD = (proxy['YCOORD'] - YCOORD_reference) + 0.1\nproxy = proxy.concat({'delta_YCOORD':delta_YCOORD})\nxy_relative = proxy\nxy_relative.head()",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:26:59+0000",
+      "dateUpdated": "2023-05-21T21:56:06+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -438,7 +437,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "reference_address =  2521 AVENUE J\n            ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS    XCOORD    YCOORD\n70920  2521 AVENUE J         1735000               2  997881.0  167561.0\nXCOORD_reference =  997881.0\nYCOORD_reference =  167561.0\n                ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS   XCOORD  YCOORD  delta_XCOORD  delta_YCOORD\n0  1050 MANHATTAN AVENUE        18000000               1   996809  206963       -1071.9       39402.1\n1      104 WILLOW STREET        10625000               3   985407  193551      -12473.9       25990.1\n2    3542 BEDFORD AVENUE        10000000               1   998040  163601         159.1       -3959.9\n3           430 AVENUE T         8600000               2   992777  157679       -5103.9       -9881.9\n4    702 EAST 103 STREET         8150000               1  1012625  175231       14744.1        7670.1\n"
+            "data": "reference_address =  2521 AVENUE J\n            ADDRESS_  MAX_SALE_PRICE    XCOORD    YCOORD  N_TRANSACTIONS\n76175  2521 AVENUE J         1735000  997881.0  167561.0               2\nXCOORD_reference =  997881.0\nYCOORD_reference =  167561.0\n                ADDRESS_  MAX_SALE_PRICE  XCOORD  YCOORD  N_TRANSACTIONS  delta_XCOORD  delta_YCOORD\n0  1050 MANHATTAN AVENUE        18000000  996809  206963               1       -1071.9       39402.1\n1      104 WILLOW STREET        10625000  985407  193551               3      -12473.9       25990.1\n2    3542 BEDFORD AVENUE        10000000  998040  163601               1         159.1       -3959.9\n3       295 HENRY STREET         7630000  985492  191257               1      -12388.9       23696.1\n4           430 AVENUE T         8600000  992777  157679               2       -5103.9       -9881.9\n"
           }
         ]
       },
@@ -449,8 +448,8 @@
       "jobName": "paragraph_1669755555312_1409372273",
       "id": "paragraph_1669755555312_1409372273",
       "dateCreated": "2022-11-29T20:59:15+0000",
-      "dateStarted": "2023-02-27T14:27:00+0000",
-      "dateFinished": "2023-02-27T14:27:51+0000",
+      "dateStarted": "2023-05-21T21:56:06+0000",
+      "dateFinished": "2023-05-21T21:56:10+0000",
       "status": "FINISHED",
       "$$hashKey": "object:49"
     },
@@ -458,7 +457,7 @@
       "title": "plot delta_X,Y",
       "text": "%python\ndf = xy_relative.pull()\nfig, ax = plt.subplots(1, 1, figsize=(8,8))\nxp = df.delta_XCOORD/1.0e3\nyp = df.delta_YCOORD/1.0e3\ncolor = color_seq[0]\np = ax.plot(xp, yp, linestyle='none', marker='o', markersize=1.5, alpha=1, color=color)\np = ax.set_xlabel(r'delta_XCOORD    ($10^3$)')\np = ax.set_ylabel(r'delta_YCOORD    ($10^3$)')",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:27:51+0000",
+      "dateUpdated": "2023-05-21T21:56:10+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -492,8 +491,8 @@
       "jobName": "paragraph_1669756091628_1610767589",
       "id": "paragraph_1669756091628_1610767589",
       "dateCreated": "2022-11-29T21:08:11+0000",
-      "dateStarted": "2023-02-27T14:27:53+0000",
-      "dateFinished": "2023-02-27T14:28:03+0000",
+      "dateStarted": "2023-05-21T21:56:11+0000",
+      "dateFinished": "2023-05-21T21:56:12+0000",
       "status": "FINISHED",
       "$$hashKey": "object:50"
     },
@@ -501,7 +500,7 @@
       "title": "merge xy_relative and geolocate_train to get training data",
       "text": "%python\nproxy = xy_relative.merge(geolocate_train, on='ADDRESS_', how='inner', suffixes=('', ''))\nproxy = proxy[['ADDRESS_', 'delta_XCOORD', 'delta_YCOORD', 'delta_latitute', 'delta_longitude']]\ntrain = proxy\ntrain",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:28:03+0000",
+      "dateUpdated": "2023-05-21T21:56:12+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -524,7 +523,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "                  ADDRESS_  delta_XCOORD  delta_YCOORD  delta_latitute  delta_longitude\n0    66 HIGHLAND BOULEVARD       14524.1       19241.1        0.052816         0.052303\n1     1710 SHORE BOULEVARD        3683.1      -16750.9       -0.046009         0.013228\n2          537 HART STREET        5757.1       25542.1        0.070041         0.020670\n3  978 THOMAS S BOYLAND ST       11176.1       10875.1        0.029792         0.040380\n4           6216 12 AVENUE      -14327.9         810.1        0.002134        -0.051445\n5            2521 AVENUE J           0.1           0.1        0.000000         0.000000\n6      1459 EAST 69 STREET       11091.1       -1982.9       -0.005542         0.039998\n"
+            "data": "                  ADDRESS_  delta_XCOORD  delta_YCOORD  delta_latitute  delta_longitude\n0  978 THOMAS S BOYLAND ST       11176.1       10875.1        0.029792         0.040380\n1           6216 12 AVENUE      -14327.9         810.1        0.002134        -0.051445\n2            2521 AVENUE J           0.1           0.1        0.000000         0.000000\n3    66 HIGHLAND BOULEVARD       14524.1       19241.1        0.052816         0.052303\n4      1459 EAST 69 STREET       11091.1       -1982.9       -0.005542         0.039998\n5          537 HART STREET        5757.1       25542.1        0.070041         0.020670\n6     1710 SHORE BOULEVARD        3683.1      -16750.9       -0.046009         0.013228\n"
           }
         ]
       },
@@ -535,8 +534,8 @@
       "jobName": "paragraph_1669781345075_229388515",
       "id": "paragraph_1669781345075_229388515",
       "dateCreated": "2022-11-30T04:09:05+0000",
-      "dateStarted": "2023-02-27T14:28:05+0000",
-      "dateFinished": "2023-02-27T14:28:18+0000",
+      "dateStarted": "2023-05-21T21:56:12+0000",
+      "dateFinished": "2023-05-21T21:56:12+0000",
       "status": "FINISHED",
       "$$hashKey": "object:51"
     },
@@ -544,7 +543,7 @@
       "title": "train regression model to estimate delta_latitute",
       "text": "%python\nproxy = train\ncase_id = 'ADDRESS_'\ntarget = 'delta_latitute'\nmodel_name = 'DELTA_LATITUDE_MODEL'\nx_cols = [case_id, 'delta_XCOORD', 'delta_YCOORD']\nX = proxy[x_cols]\nY = proxy[target]\nsettings = {}\ntry:\n    oml.drop(model=model_name)\nexcept:\n    print('No such model')\nmodel = oml.glm(\"regression\", **settings)\nmodel = model.fit(X, Y, model_name=model_name, case_id=case_id)\ndelta_latitute_model = model",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:28:18+0000",
+      "dateUpdated": "2023-05-21T21:56:12+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -573,15 +572,15 @@
       "jobName": "paragraph_1669661081494_2126105559",
       "id": "paragraph_1669661081494_2126105559",
       "dateCreated": "2022-11-28T18:44:41+0000",
-      "dateStarted": "2023-02-27T14:28:19+0000",
-      "dateFinished": "2023-02-27T14:28:45+0000",
+      "dateStarted": "2023-05-21T21:56:13+0000",
+      "dateFinished": "2023-05-21T21:56:16+0000",
       "status": "FINISHED",
       "$$hashKey": "object:52"
     },
     {
       "text": "%python\ntrain",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:28:45+0000",
+      "dateUpdated": "2023-05-21T21:56:16+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -603,7 +602,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "                  ADDRESS_  delta_XCOORD  delta_YCOORD  delta_latitute  delta_longitude\n0    66 HIGHLAND BOULEVARD       14524.1       19241.1        0.052816         0.052303\n1     1710 SHORE BOULEVARD        3683.1      -16750.9       -0.046009         0.013228\n2          537 HART STREET        5757.1       25542.1        0.070041         0.020670\n3  978 THOMAS S BOYLAND ST       11176.1       10875.1        0.029792         0.040380\n4           6216 12 AVENUE      -14327.9         810.1        0.002134        -0.051445\n5            2521 AVENUE J           0.1           0.1        0.000000         0.000000\n6      1459 EAST 69 STREET       11091.1       -1982.9       -0.005542         0.039998\n"
+            "data": "                  ADDRESS_  delta_XCOORD  delta_YCOORD  delta_latitute  delta_longitude\n0  978 THOMAS S BOYLAND ST       11176.1       10875.1        0.029792         0.040380\n1           6216 12 AVENUE      -14327.9         810.1        0.002134        -0.051445\n2            2521 AVENUE J           0.1           0.1        0.000000         0.000000\n3    66 HIGHLAND BOULEVARD       14524.1       19241.1        0.052816         0.052303\n4      1459 EAST 69 STREET       11091.1       -1982.9       -0.005542         0.039998\n5          537 HART STREET        5757.1       25542.1        0.070041         0.020670\n6     1710 SHORE BOULEVARD        3683.1      -16750.9       -0.046009         0.013228\n"
           }
         ]
       },
@@ -614,8 +613,8 @@
       "jobName": "paragraph_1669830398964_1778333268",
       "id": "paragraph_1669830398964_1778333268",
       "dateCreated": "2022-11-30T17:46:38+0000",
-      "dateStarted": "2023-02-27T14:28:45+0000",
-      "dateFinished": "2023-02-27T14:28:55+0000",
+      "dateStarted": "2023-05-21T21:56:16+0000",
+      "dateFinished": "2023-05-21T21:56:17+0000",
       "status": "FINISHED",
       "$$hashKey": "object:53"
     },
@@ -623,7 +622,7 @@
       "title": "train model to estimate delta_longitude",
       "text": "%python\nproxy = train\ncase_id = 'ADDRESS_'\ntarget = 'delta_longitude'\nmodel_name = 'DELTA_LONGITUDE_MODEL'\nX = proxy[x_cols]\nY = proxy[target]\ntry:\n    oml.drop(model=model_name)\nexcept:\n    print('No such model')\nmodel = oml.glm(\"regression\", **settings)\nmodel = model.fit(X, Y, model_name=model_name, case_id=case_id)\ndelta_longitude_model = model",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:28:56+0000",
+      "dateUpdated": "2023-05-21T21:56:17+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -652,8 +651,8 @@
       "jobName": "paragraph_1669757317075_963349669",
       "id": "paragraph_1669757317075_963349669",
       "dateCreated": "2022-11-29T21:28:37+0000",
-      "dateStarted": "2023-02-27T14:28:56+0000",
-      "dateFinished": "2023-02-27T14:29:19+0000",
+      "dateStarted": "2023-05-21T21:56:17+0000",
+      "dateFinished": "2023-05-21T21:56:20+0000",
       "status": "FINISHED",
       "$$hashKey": "object:54"
     },
@@ -661,7 +660,7 @@
       "title": "use delta_latitute_model to estimate each address's latitude",
       "text": "%python\nproxy = xy_relative\nmodel = delta_latitute_model\nX = proxy[x_cols]\nproxy = model.predict(X, supplemental_cols=proxy)\nproxy = proxy.rename({'PREDICTION':'delta_latitute'})\nlatitude_ = proxy['delta_latitute'] + latitute_ref\nproxy = proxy.concat({'LATITUDE_':latitude_})\nlatitude = proxy\nprint ('latitude.shape = ', latitude.shape)\nlatitude.head()",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:29:19+0000",
+      "dateUpdated": "2023-05-21T21:56:20+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -684,7 +683,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "latitude.shape =  (93996, 9)\n                ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS   XCOORD  YCOORD  delta_XCOORD  delta_YCOORD  delta_latitute  LATITUDE_\n0  1050 MANHATTAN AVENUE        18000000               1   996809  206963       -1071.9       39402.1        0.108092  40.734847\n1      104 WILLOW STREET        10625000               3   985407  193551      -12473.9       25990.1        0.071267  40.698021\n2    3542 BEDFORD AVENUE        10000000               1   998040  163601         159.1       -3959.9       -0.010922  40.615833\n3           430 AVENUE T         8600000               2   992777  157679       -5103.9       -9881.9       -0.027182  40.599572\n4    702 EAST 103 STREET         8150000               1  1012625  175231       14744.1        7670.1        0.021016  40.647771\n"
+            "data": "latitude.shape =  (93996, 9)\n                ADDRESS_  MAX_SALE_PRICE  XCOORD  YCOORD  N_TRANSACTIONS  delta_XCOORD  delta_YCOORD  delta_latitute  LATITUDE_\n0  1050 MANHATTAN AVENUE        18000000  996809  206963               1       -1071.9       39402.1        0.108092  40.734847\n1      104 WILLOW STREET        10625000  985407  193551               3      -12473.9       25990.1        0.071267  40.698021\n2    3542 BEDFORD AVENUE        10000000  998040  163601               1         159.1       -3959.9       -0.010922  40.615833\n3       295 HENRY STREET         7630000  985492  191257               1      -12388.9       23696.1        0.064970  40.691725\n4           430 AVENUE T         8600000  992777  157679               2       -5103.9       -9881.9       -0.027182  40.599572\n"
           }
         ]
       },
@@ -695,8 +694,8 @@
       "jobName": "paragraph_1669759705687_1559318899",
       "id": "paragraph_1669759705687_1559318899",
       "dateCreated": "2022-11-29T22:08:25+0000",
-      "dateStarted": "2023-02-27T14:29:19+0000",
-      "dateFinished": "2023-02-27T14:30:00+0000",
+      "dateStarted": "2023-05-21T21:56:21+0000",
+      "dateFinished": "2023-05-21T21:56:24+0000",
       "status": "FINISHED",
       "$$hashKey": "object:55"
     },
@@ -704,7 +703,7 @@
       "title": "use delta_longitude_model to estimate each address's longitude",
       "text": "%python\nproxy = xy_relative\nmodel = delta_longitude_model\ncols = [case_id] + x_cols\nX = proxy[cols]\nproxy = model.predict(X, supplemental_cols=proxy[case_id])\nproxy = proxy.rename({'PREDICTION':'delta_longitude'})\nlongitude_ = proxy['delta_longitude'] + longitude_ref\nproxy = proxy.concat({'LONGITUDE_':longitude_})\nproxy = proxy[['ADDRESS_', 'LONGITUDE_']]\nlat_long = latitude.merge(proxy, on='ADDRESS_', how='inner', suffixes=('', ''))\nlat_long.head()",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:30:01+0000",
+      "dateUpdated": "2023-05-21T21:56:24+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -727,7 +726,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "                ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS   XCOORD  YCOORD  delta_XCOORD  delta_YCOORD  delta_latitute  LATITUDE_  LONGITUDE_\n0  1050 MANHATTAN AVENUE        18000000               1   996809  206963       -1071.9       39402.1        0.108092  40.734847  -73.954193\n1      104 WILLOW STREET        10625000               3   985407  193551      -12473.9       25990.1        0.071267  40.698021  -73.995219\n2    3542 BEDFORD AVENUE        10000000               1   998040  163601         159.1       -3959.9       -0.010922  40.615833  -73.949762\n3           430 AVENUE T         8600000               2   992777  157679       -5103.9       -9881.9       -0.027182  40.599572  -73.968699\n4    702 EAST 103 STREET         8150000               1  1012625  175231       14744.1        7670.1        0.021016  40.647771  -73.897282\n"
+            "data": "               ADDRESS_  MAX_SALE_PRICE   XCOORD  YCOORD  N_TRANSACTIONS  delta_XCOORD  delta_YCOORD  delta_latitute  LATITUDE_  LONGITUDE_\n0      391 MACON STREET         2200000  1001986  188072               8        4105.1       20511.1        0.056248  40.683003  -73.935564\n1  364 PRESIDENT STREET         2200000   986545  186924               1      -11335.9       19363.1        0.053079  40.679834  -73.991124\n2      271 BERRY STREET         2200000   994492  199517               1       -3388.9       31956.1        0.087652  40.714407  -73.962530\n3    1031 EAST 8 STREET         2200000   993228  166636               3       -4652.9        -924.9       -0.002598  40.624157  -73.967077\n4    213 BERKELEY PLACE         2200000   991573  185122               1       -6307.9       17561.1        0.048139  40.674894  -73.973032\n"
           }
         ]
       },
@@ -738,8 +737,8 @@
       "jobName": "paragraph_1669761585051_1658825174",
       "id": "paragraph_1669761585051_1658825174",
       "dateCreated": "2022-11-29T22:39:45+0000",
-      "dateStarted": "2023-02-27T14:30:01+0000",
-      "dateFinished": "2023-02-27T14:31:15+0000",
+      "dateStarted": "2023-05-21T21:56:24+0000",
+      "dateFinished": "2023-05-21T21:56:29+0000",
       "status": "FINISHED",
       "$$hashKey": "object:56"
     },
@@ -747,7 +746,7 @@
       "title": "write lat_long to ADW table",
       "text": "%python\nproxy = lat_long\nproxy = proxy[['ADDRESS_', 'MAX_SALE_PRICE', 'N_TRANSACTIONS', 'LATITUDE_', 'LONGITUDE_']]\ntable = 'BROOKLYN_LAT_LONG'\ntry:\n    oml.drop(table)\nexcept:\n    pass\nprint ('proxy.shape = ', proxy.shape)\nproxy = proxy.materialize(table=table)\nproxy.head()",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:31:15+0000",
+      "dateUpdated": "2023-05-21T21:56:29+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -770,7 +769,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "proxy.shape =  (93996, 5)\n                ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS  LATITUDE_  LONGITUDE_\n0  1050 MANHATTAN AVENUE        18000000               1  40.734847  -73.954193\n1      104 WILLOW STREET        10625000               3  40.698021  -73.995219\n2    3542 BEDFORD AVENUE        10000000               1  40.615833  -73.949762\n3           430 AVENUE T         8600000               2  40.599572  -73.968699\n4    702 EAST 103 STREET         8150000               1  40.647771  -73.897282\n"
+            "data": "proxy.shape =  (93996, 5)\n             ADDRESS_  MAX_SALE_PRICE  N_TRANSACTIONS  LATITUDE_  LONGITUDE_\n0  959 EAST 56 STREET          127500               1  40.632966  -73.921710\n1        90 86 STREET          966000               2  40.624664  -74.036296\n2       138 91 STREET          950000               2  40.620868  -74.036062\n3       134 93 STREET               0               1  40.619339  -74.035914\n4       229 95 STREET          700000               1  40.617981  -74.034576\n"
           }
         ]
       },
@@ -781,15 +780,15 @@
       "jobName": "paragraph_1669830829703_65193802",
       "id": "paragraph_1669830829703_65193802",
       "dateCreated": "2022-11-30T17:53:49+0000",
-      "dateStarted": "2023-02-27T14:31:17+0000",
-      "dateFinished": "2023-02-27T14:31:59+0000",
+      "dateStarted": "2023-05-21T21:56:29+0000",
+      "dateFinished": "2023-05-21T21:56:35+0000",
       "status": "FINISHED",
       "$$hashKey": "object:57"
     },
     {
       "text": "%python\ndf = lat_long.pull()\nfig, ax = plt.subplots(1, 1, figsize=(9,9))\nxp = 2*(df.LONGITUDE_ - longitude_ref)\nyp = df.LATITUDE_ - latitute_ref\ncolor = color_seq[0]\np = ax.plot(xp, yp, linestyle='none', marker='o', markersize=1.5, alpha=1, color=color)\np = ax.set_xlabel('2*(longitude - longitude_ref)    (deg)')\np = ax.set_ylabel('latitude - latitute_ref    (deg)')",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:31:59+0000",
+      "dateUpdated": "2023-05-21T21:56:35+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -822,15 +821,15 @@
       "jobName": "paragraph_1669832154947_1174323131",
       "id": "paragraph_1669832154947_1174323131",
       "dateCreated": "2022-11-30T18:15:54+0000",
-      "dateStarted": "2023-02-27T14:32:02+0000",
-      "dateFinished": "2023-02-27T14:32:24+0000",
+      "dateStarted": "2023-05-21T21:56:35+0000",
+      "dateFinished": "2023-05-21T21:56:38+0000",
       "status": "FINISHED",
       "$$hashKey": "object:58"
     },
     {
       "text": "%sql\nselect count(*) from BROOKLYN_TEST;\n",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:32:24+0000",
+      "dateUpdated": "2023-05-21T21:56:38+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -890,15 +889,15 @@
       "jobName": "paragraph_1676600513373_2046939636",
       "id": "paragraph_1676600513373_2046939636",
       "dateCreated": "2023-02-17T02:21:53+0000",
-      "dateStarted": "2023-02-27T14:32:24+0000",
-      "dateFinished": "2023-02-27T14:32:25+0000",
+      "dateStarted": "2023-05-21T21:56:38+0000",
+      "dateFinished": "2023-05-21T21:56:38+0000",
       "status": "FINISHED",
       "$$hashKey": "object:59"
     },
     {
       "text": "%script\nbegin execute immediate 'drop table brooklyn_test_geocoded'; exception when others then null; end;\n/\ncreate table brooklyn_test_geocoded as \n    select * from\n        (select * from BROOKLYN_TEST)\n        join \n        (select ADDRESS_, LATITUDE_, LONGITUDE_ from BROOKLYN_LAT_LONG)\n        using (ADDRESS_)\n        ;\nselect count(*) from brooklyn_test_geocoded;",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:32:25+0000",
+      "dateUpdated": "2023-05-21T21:56:38+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -983,15 +982,15 @@
       "jobName": "paragraph_1676600528782_1652455138",
       "id": "paragraph_1676600528782_1652455138",
       "dateCreated": "2023-02-17T02:22:08+0000",
-      "dateStarted": "2023-02-27T14:32:27+0000",
-      "dateFinished": "2023-02-27T14:32:31+0000",
+      "dateStarted": "2023-05-21T21:56:38+0000",
+      "dateFinished": "2023-05-21T21:56:41+0000",
       "status": "FINISHED",
       "$$hashKey": "object:60"
     },
     {
       "text": "%sql\nselect * from brooklyn_test_geocoded where (ain < 100006) order by ain;",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:32:31+0000",
+      "dateUpdated": "2023-05-21T21:56:41+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1065,7 +1064,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "ADDRESS_\tAIN\tTRANSACTION_ID\tGROSS_SQFT\tBUILDING_CLASS_AT_SALE\tSALE_PRICE\tSALE_DATE\tYEAR_STR\tQUARTER\tYEARBUILT\tAGE_YEARS\tRESIDFAR\tCT2010\tSCHOOLDIST\tSANITDISTR\tNUMFLOORS\tASSESSTOT\tXCOORD\tYCOORD\tLAND_SQFT\tASSESSLAND\tLOTFRONT\tSHAPE_LENG\tLATITUDE_\tLONGITUDE_\n1286 PRESIDENT STREET\t100002\t5287\t3544\tA5\t3000000\t2017-05-26\t2017\t2\t1901\t116\t0.5\t335\t17\t09\t3\t42134\t998917\t182495\t3140\t13509\t25\t308.079275989\t40.667691930533078225\t-73.9466068295723842561\n875 EAST 8 STREET\t100003\t5293\t2064\tA1\t3000000\t2017-11-28\t2017\t4\t1925\t92\t1.02\t456\t21\t12\t2\t50163\t993022\t168051\t4000\t13736\t40\t272.12928204\t40.6280405532025167717\t-73.967817874294754528\n2102 OCEAN PARKWAY\t100004\t5295\t1970\tB2\t3000000\t2017-02-24\t2017\t1\t1920\t97\t1.25\t394\t21\t15\t2\t45145\t993673\t157006\t4200\t13029\t30\t338.195446655\t40.597726126024238203\t-73.965475012629248357\n344 1 STREET\t100005\t5358\t2670\tB3\t2992500\t2014-08-21\t2014\t3\t1901\t113\t2\t135\t15\t06\t2\t30097\t989456\t184556\t1800\t6295\t18\t238.618618303\t40.673337596415721976\t-73.980649788797486159\n344 1 STREET\t100005\t24901\t2670\tB3\t1175000\t2003-01-16\t2003\t1\t1901\t102\t2\t135\t15\t06\t2\t30097\t989456\t184556\t1800\t6295\t18\t238.618618303\t40.673337596415721976\t-73.980649788797486159\n"
+            "data": "ADDRESS_\tAIN\tTRANSACTION_ID\tGROSS_SQFT\tBUILDING_CLASS_AT_SALE\tSALE_PRICE\tSALE_DATE\tYEAR_STR\tQUARTER\tYEARBUILT\tAGE_YEARS\tRESIDFAR\tCT2010\tSCHOOLDIST\tSANITDISTR\tNUMFLOORS\tASSESSTOT\tXCOORD\tYCOORD\tLAND_SQFT\tASSESSLAND\tLOTFRONT\tSHAPE_LENG\tLATITUDE_\tLONGITUDE_\n380 5 STREET\t100001\t38171\t2085\tB3\t900000\t2010-11-08\t8\t4\t1901\t-1893\t2\t137\t15\t06\t2\t34038\t988952\t183643\t1567\t6923\t15.67\t235.569706374\t40.670831092298816407\t-73.98246326417043578\n815 PROSPECT PLACE\t100002\t20450\t3780\tB3\t1300000\t2015-07-23\t23\t3\t1910\t-1887\t2.43\t317.01\t17\t08\t3\t23048\t998283\t185033\t3140\t8609\t25\t308.850292311\t40.674657227624176523\t-73.9488882039593881846\n206 VANDERBILT AVENUE\t100003\t5827\t1640\tB3\t2800000\t2015-03-30\t30\t1\t1900\t-1870\t2\t183\t13\t02\t2\t51645\t992631\t191112\t2153\t10443\t23.92\t251.210807456\t40.691335584179872947\t-73.969225643588048334\n206 VANDERBILT AVENUE\t100003\t13501\t2460\tB3\t1650000\t2007-06-13\t13\t2\t1900\t-1887\t2\t183\t13\t02\t2\t51645\t992631\t191112\t2153\t10443\t23.92\t251.210807456\t40.691335584179872947\t-73.969225643588048334\n206 VANDERBILT AVENUE\t100003\t346783\t2460\tB3\t1550000\t2005-02-03\t3\t1\t1900\t-1897\t2\t183\t13\t02\t2\t51645\t992631\t191112\t2153\t10443\t23.92\t251.210807456\t40.691335584179872947\t-73.969225643588048334\n1850 EAST 8 STREET\t100004\t13482\t1692\tA1\t1650000\t2017-04-04\t4\t2\t1925\t-1921\t1.25\t418\t21\t15\t2\t36903\t994124\t159265\t3495\t8283\t29\t295.731436344\t40.603926931816620859\t-73.963852293811767255\n175 EXETER STREET\t100005\t13545\t2122\tA1\t1645000\t2009-11-24\t24\t4\t1930\t-1906\t0.6\t620\t22\t15\t2.5\t76221\t998670\t149886\t6000\t22806\t60\t321.184003546\t40.578189765863521264\t-73.9474943767810058867\n"
           }
         ]
       },
@@ -1076,15 +1075,15 @@
       "jobName": "paragraph_1677186599853_1190684324",
       "id": "paragraph_1677186599853_1190684324",
       "dateCreated": "2023-02-23T21:09:59+0000",
-      "dateStarted": "2023-02-27T14:32:31+0000",
-      "dateFinished": "2023-02-27T14:32:31+0000",
+      "dateStarted": "2023-05-21T21:56:41+0000",
+      "dateFinished": "2023-05-21T21:56:41+0000",
       "status": "FINISHED",
       "$$hashKey": "object:61"
     },
     {
       "text": "%sql\nselect * from brooklyn_test where (ain < 100006) order by ain;",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:32:31+0000",
+      "dateUpdated": "2023-05-21T21:56:41+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1156,7 +1155,7 @@
         "msg": [
           {
             "type": "TABLE",
-            "data": "ADDRESS_\tAIN\tTRANSACTION_ID\tGROSS_SQFT\tBUILDING_CLASS_AT_SALE\tSALE_PRICE\tSALE_DATE\tYEAR_STR\tQUARTER\tYEARBUILT\tAGE_YEARS\tRESIDFAR\tCT2010\tSCHOOLDIST\tSANITDISTR\tNUMFLOORS\tASSESSTOT\tXCOORD\tYCOORD\tLAND_SQFT\tASSESSLAND\tLOTFRONT\tSHAPE_LENG\n1286 PRESIDENT STREET\t100002\t5287\t3544\tA5\t3000000\t2017-05-26\t2017\t2\t1901\t116\t0.5\t335\t17\t09\t3\t42134\t998917\t182495\t3140\t13509\t25\t308.079275989\n875 EAST 8 STREET\t100003\t5293\t2064\tA1\t3000000\t2017-11-28\t2017\t4\t1925\t92\t1.02\t456\t21\t12\t2\t50163\t993022\t168051\t4000\t13736\t40\t272.12928204\n2102 OCEAN PARKWAY\t100004\t5295\t1970\tB2\t3000000\t2017-02-24\t2017\t1\t1920\t97\t1.25\t394\t21\t15\t2\t45145\t993673\t157006\t4200\t13029\t30\t338.195446655\n344 1 STREET\t100005\t5358\t2670\tB3\t2992500\t2014-08-21\t2014\t3\t1901\t113\t2\t135\t15\t06\t2\t30097\t989456\t184556\t1800\t6295\t18\t238.618618303\n344 1 STREET\t100005\t24901\t2670\tB3\t1175000\t2003-01-16\t2003\t1\t1901\t102\t2\t135\t15\t06\t2\t30097\t989456\t184556\t1800\t6295\t18\t238.618618303\n"
+            "data": "ADDRESS_\tAIN\tTRANSACTION_ID\tGROSS_SQFT\tBUILDING_CLASS_AT_SALE\tSALE_PRICE\tSALE_DATE\tYEAR_STR\tQUARTER\tYEARBUILT\tAGE_YEARS\tRESIDFAR\tCT2010\tSCHOOLDIST\tSANITDISTR\tNUMFLOORS\tASSESSTOT\tXCOORD\tYCOORD\tLAND_SQFT\tASSESSLAND\tLOTFRONT\tSHAPE_LENG\n380 5 STREET\t100001\t38171\t2085\tB3\t900000\t2010-11-08\t8\t4\t1901\t-1893\t2\t137\t15\t06\t2\t34038\t988952\t183643\t1567\t6923\t15.67\t235.569706374\n815 PROSPECT PLACE\t100002\t20450\t3780\tB3\t1300000\t2015-07-23\t23\t3\t1910\t-1887\t2.43\t317.01\t17\t08\t3\t23048\t998283\t185033\t3140\t8609\t25\t308.850292311\n206 VANDERBILT AVENUE\t100003\t346783\t2460\tB3\t1550000\t2005-02-03\t3\t1\t1900\t-1897\t2\t183\t13\t02\t2\t51645\t992631\t191112\t2153\t10443\t23.92\t251.210807456\n206 VANDERBILT AVENUE\t100003\t5827\t1640\tB3\t2800000\t2015-03-30\t30\t1\t1900\t-1870\t2\t183\t13\t02\t2\t51645\t992631\t191112\t2153\t10443\t23.92\t251.210807456\n206 VANDERBILT AVENUE\t100003\t13501\t2460\tB3\t1650000\t2007-06-13\t13\t2\t1900\t-1887\t2\t183\t13\t02\t2\t51645\t992631\t191112\t2153\t10443\t23.92\t251.210807456\n1850 EAST 8 STREET\t100004\t13482\t1692\tA1\t1650000\t2017-04-04\t4\t2\t1925\t-1921\t1.25\t418\t21\t15\t2\t36903\t994124\t159265\t3495\t8283\t29\t295.731436344\n175 EXETER STREET\t100005\t13545\t2122\tA1\t1645000\t2009-11-24\t24\t4\t1930\t-1906\t0.6\t620\t22\t15\t2.5\t76221\t998670\t149886\t6000\t22806\t60\t321.184003546\n"
           }
         ]
       },
@@ -1167,15 +1166,15 @@
       "jobName": "paragraph_1677191247693_2018742745",
       "id": "paragraph_1677191247693_2018742745",
       "dateCreated": "2023-02-23T22:27:27+0000",
-      "dateStarted": "2023-02-27T14:32:32+0000",
-      "dateFinished": "2023-02-27T14:32:32+0000",
+      "dateStarted": "2023-05-21T21:56:42+0000",
+      "dateFinished": "2023-05-21T21:56:42+0000",
       "status": "FINISHED",
       "$$hashKey": "object:62"
     },
     {
       "text": "%sql\n",
       "user": "MLUSER",
-      "dateUpdated": "2023-02-27T14:32:32+0000",
+      "dateUpdated": "2023-05-21T21:56:42+0000",
       "progress": 0,
       "config": {
         "editorSetting": {
@@ -1203,8 +1202,8 @@
       "jobName": "paragraph_1677191309022_1470884840",
       "id": "paragraph_1677191309022_1470884840",
       "dateCreated": "2023-02-23T22:28:29+0000",
-      "dateStarted": "2023-02-27T14:32:32+0000",
-      "dateFinished": "2023-02-27T14:32:32+0000",
+      "dateStarted": "2023-05-21T21:56:42+0000",
+      "dateFinished": "2023-05-21T21:56:42+0000",
       "status": "FINISHED",
       "$$hashKey": "object:63"
     }
