@@ -5,7 +5,7 @@ joe.hahn@oracle.com,<br />
 27 April 2023<br />
 git branch=master
 
-1 see blog post https://url.tbd
+1 see blog post at https://blogs.oracle.com/machinelearning/post/develop-and-deploy-machine-learning-models-using-oracle-autonomous-database-machine-learning-and-apex
 
 2 download zipped data from https://objectstorage.us-ashburn-1.oraclecloud.com/n/adwc4pm/b/OML_Data/o/brooklyn_sales.csv
 and unzip to your desktop
@@ -19,7 +19,7 @@ to avoid any confusion.
 
 6 have ADB admin user load csv data into table admin.brooklyn_sales_map, noting that the table name=file name + _map
 
-7 have admin user create ADW user MLUSER with OML privledges and unlimited quota on tablespace on DATA
+7 have admin user create ADW user MLUSER with OML privledges and 1G quota on tablespace DATA
 
 8 have admin user grant user MLUSER select access to table admin.brooklyn_sales_map:
 
