@@ -5,16 +5,21 @@ whenever sqlerror exit sql.sqlcode rollback
 --
 -- Oracle APEX export file
 --
--- You should run the script connected to SQL*Plus as the owner (parsing schema)
--- of the application.
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
 --
 -- NOTE: Calls to apex_application_install override the defaults below.
 --
 --------------------------------------------------------------------------------
 begin
 wwv_flow_imp.import_begin (
- p_version_yyyy_mm_dd=>'2022.10.07'
-,p_release=>'22.2.4'
+ p_version_yyyy_mm_dd=>'2023.10.31'
+,p_release=>'23.2.3'
 ,p_default_workspace_id=>12200924463276275
 ,p_default_application_id=>100
 ,p_default_id_offset=>0
@@ -28,7 +33,7 @@ prompt APPLICATION 100 - CAMA App
 -- Application Export:
 --   Application:     100
 --   Name:            CAMA App
---   Date and Time:   19:25 Thursday April 20, 2023
+--   Date and Time:   14:03 Thursday March 7, 2024
 --   Exported By:     MLUSER
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -72,7 +77,8 @@ prompt APPLICATION 100 - CAMA App
 --       Reports:
 --       E-Mail:
 --     Supporting Objects:  Included
---   Version:         22.2.4
+--       Install scripts:          1
+--   Version:         23.2.3
 --   Instance ID:     7335019065481591
 --
 
@@ -83,7 +89,7 @@ end;
 /
 prompt --application/create_application
 begin
-wwv_flow_imp.create_flow(
+wwv_imp_workspace.create_flow(
  p_id=>wwv_flow.g_flow_id
 ,p_owner=>nvl(wwv_flow_application_install.get_schema,'MLUSER')
 ,p_name=>nvl(wwv_flow_application_install.get_application_name,'CAMA App')
@@ -93,6 +99,7 @@ wwv_flow_imp.create_flow(
 ,p_checksum_salt=>'8A662AAE7EDBFFA0525FA9D73BD1D9B29100FABF71A2D266703A3C2C8246C6AC'
 ,p_bookmark_checksum_function=>'SH512'
 ,p_compatibility_mode=>'21.2'
+,p_session_state_commits=>'IMMEDIATE'
 ,p_flow_language=>'en'
 ,p_flow_language_derived_from=>'FLOW_PRIMARY_LANGUAGE'
 ,p_allow_feedback_yn=>'Y'
@@ -101,7 +108,6 @@ wwv_flow_imp.create_flow(
 ,p_timestamp_tz_format=>'DS'
 ,p_direction_right_to_left=>'N'
 ,p_flow_image_prefix => nvl(wwv_flow_application_install.get_image_prefix,'')
-,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_imp.id(12205923660297748)
 ,p_application_tab_set=>1
 ,p_logo_type=>'IT'
@@ -116,6 +122,7 @@ wwv_flow_imp.create_flow(
 ,p_browser_cache=>'N'
 ,p_browser_frame=>'D'
 ,p_runtime_api_usage=>'T'
+,p_pass_ecid=>'N'
 ,p_security_scheme=>wwv_flow_imp.id(12405842074298151)
 ,p_rejoin_existing_sessions=>'N'
 ,p_csv_encoding=>'Y'
@@ -123,10 +130,11 @@ wwv_flow_imp.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'CAMA'
 ,p_last_updated_by=>'MLUSER'
-,p_last_upd_yyyymmddhh24miss=>'20230403193636'
+,p_last_upd_yyyymmddhh24miss=>'20240307140337'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>16
 ,p_print_server_type=>'NATIVE'
+,p_file_storage=>'DB'
 ,p_is_pwa=>'Y'
 ,p_pwa_is_installable=>'Y'
 ,p_pwa_manifest_display=>'standalone'
@@ -488,6 +496,11 @@ wwv_flow_imp_shared.create_list_item(
 ,p_list_text_01=>'Report of all feedback submitted by application users'
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
+end;
+/
+prompt --application/shared_components/navigation/listentry
+begin
+null;
 end;
 /
 prompt --application/shared_components/files/icons_app_icon_192_png
@@ -7607,6 +7620,13 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_plugin_type=>'REGION TYPE'
 ,p_plugin=>'NATIVE_MAP_REGION'
 ,p_attribute_01=>'N'
+,p_version_scn=>1
+);
+wwv_flow_imp_shared.create_plugin_setting(
+ p_id=>wwv_flow_imp.id(1387942246002890)
+,p_plugin_type=>'WEB SOURCE TYPE'
+,p_plugin=>'NATIVE_ADFBC'
+,p_version_scn=>41016563653218
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(1400139052340395)
@@ -7616,6 +7636,7 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_attribute_02=>'VISIBLE'
 ,p_attribute_03=>'15'
 ,p_attribute_04=>'FOCUS'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12202753127297733)
@@ -7623,12 +7644,14 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_plugin=>'NATIVE_SINGLE_CHECKBOX'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12202977930297737)
 ,p_plugin_type=>'REGION TYPE'
 ,p_plugin=>'NATIVE_DISPLAY_SELECTOR'
 ,p_attribute_01=>'Y'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12203506463297737)
@@ -7636,6 +7659,7 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_plugin=>'NATIVE_COLOR_PICKER'
 ,p_attribute_01=>'FULL'
 ,p_attribute_02=>'POPUP'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12203841931297738)
@@ -7646,15 +7670,7 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_attribute_03=>'POPUP:ITEM'
 ,p_attribute_04=>'default'
 ,p_attribute_06=>'LIST'
-);
-wwv_flow_imp_shared.create_plugin_setting(
- p_id=>wwv_flow_imp.id(12204174853297738)
-,p_plugin_type=>'ITEM TYPE'
-,p_plugin=>'NATIVE_DATE_PICKER_JET'
-,p_attribute_01=>'MONTH-PICKER:YEAR-PICKER'
-,p_attribute_02=>'VISIBLE'
-,p_attribute_03=>'15'
-,p_attribute_04=>'FOCUS'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12204488940297738)
@@ -7662,6 +7678,7 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_plugin=>'NATIVE_STAR_RATING'
 ,p_attribute_01=>'fa-star'
 ,p_attribute_04=>'#VALUE#'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12205087461297738)
@@ -7670,12 +7687,14 @@ wwv_flow_imp_shared.create_plugin_setting(
 ,p_attribute_01=>'Y'
 ,p_attribute_03=>'N'
 ,p_attribute_05=>'SWITCH_CB'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_plugin_setting(
  p_id=>wwv_flow_imp.id(12205369992297739)
 ,p_plugin_type=>'REGION TYPE'
 ,p_plugin=>'NATIVE_IR'
 ,p_attribute_01=>'IG'
+,p_version_scn=>1
 );
 end;
 /
@@ -7734,6 +7753,7 @@ wwv_flow_imp_shared.create_acl_role(
 ,p_static_id=>'ADMINISTRATOR'
 ,p_name=>'Administrator'
 ,p_description=>'Role assigned to application administrators.'
+,p_version_scn=>1
 );
 end;
 /
@@ -7744,6 +7764,7 @@ wwv_flow_imp_shared.create_acl_role(
 ,p_static_id=>'CONTRIBUTOR'
 ,p_name=>'Contributor'
 ,p_description=>'Role assigned to application contributors.'
+,p_version_scn=>1
 );
 end;
 /
@@ -7754,6 +7775,7 @@ wwv_flow_imp_shared.create_acl_role(
 ,p_static_id=>'READER'
 ,p_name=>'Reader'
 ,p_description=>'Role assigned to application readers.'
+,p_version_scn=>1
 );
 end;
 /
@@ -7772,6 +7794,7 @@ wwv_flow_imp_shared.create_app_setting(
 ,p_valid_values=>'Y, N'
 ,p_on_upgrade_keep_value=>true
 ,p_required_patch=>wwv_flow_imp.id(12403250373298136)
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_app_setting(
  p_id=>wwv_flow_imp.id(12407010944298165)
@@ -7782,6 +7805,7 @@ wwv_flow_imp_shared.create_app_setting(
 ,p_on_upgrade_keep_value=>true
 ,p_required_patch=>wwv_flow_imp.id(12403023390298136)
 ,p_comments=>'The default access level given to authenticated users who are not in the access control list'
+,p_version_scn=>1
 );
 end;
 /
@@ -22141,11 +22165,13 @@ wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12205679300297743)
 ,p_build_option_name=>'Commented Out'
 ,p_build_option_status=>'EXCLUDE'
+,p_version_scn=>1
 );
 wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12403023390298136)
 ,p_build_option_name=>'Feature: Access Control'
 ,p_build_option_status=>'INCLUDE'
+,p_version_scn=>1
 ,p_feature_identifier=>'APPLICATION_ACCESS_CONTROL'
 ,p_build_option_comment=>'Incorporate role based user authentication within your application and manage username mappings to application roles.'
 );
@@ -22153,6 +22179,7 @@ wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12403100041298136)
 ,p_build_option_name=>'Feature: Activity Reporting'
 ,p_build_option_status=>'INCLUDE'
+,p_version_scn=>1
 ,p_feature_identifier=>'APPLICATION_ACTIVITY_REPORTING'
 ,p_build_option_comment=>'Include numerous reports and charts on end user activity.'
 );
@@ -22160,6 +22187,7 @@ wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12403250373298136)
 ,p_build_option_name=>'Feature: Feedback'
 ,p_build_option_status=>'INCLUDE'
+,p_version_scn=>1
 ,p_feature_identifier=>'APPLICATION_FEEDBACK'
 ,p_build_option_comment=>'Provide a mechanism for end users to post general comments back to the application administrators and developers.'
 );
@@ -22167,6 +22195,7 @@ wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12403449684298136)
 ,p_build_option_name=>'Feature: Configuration Options'
 ,p_build_option_status=>'INCLUDE'
+,p_version_scn=>1
 ,p_feature_identifier=>'APPLICATION_CONFIGURATION'
 ,p_build_option_comment=>'Allow application administrators to enable or disable specific functionality, associated with an Oracle APEX build option, from within the application.'
 );
@@ -22174,6 +22203,7 @@ wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12403730986298136)
 ,p_build_option_name=>'Feature: About Page'
 ,p_build_option_status=>'INCLUDE'
+,p_version_scn=>1
 ,p_feature_identifier=>'APPLICATION_ABOUT_PAGE'
 ,p_build_option_comment=>'About this application page.'
 );
@@ -22181,6 +22211,7 @@ wwv_flow_imp_shared.create_build_option(
  p_id=>wwv_flow_imp.id(12403872599298136)
 ,p_build_option_name=>'Feature: Theme Style Selection'
 ,p_build_option_status=>'INCLUDE'
+,p_version_scn=>1
 ,p_feature_identifier=>'APPLICATION_THEME_STYLE_SELECTION'
 ,p_build_option_comment=>'Allow administrators to select a default color scheme (theme style) for the application. Administrators can also choose to allow end users to choose their own theme style. '
 );
@@ -29476,13 +29507,17 @@ wwv_flow_imp_page.create_page(
 '.cama-header {',
 '    background-color: #312D2A;',
 '    color: white;',
+'}',
+'',
+'.t-Form-itemRequired {',
+'    color: white;',
 '}'))
 ,p_step_template=>wwv_flow_imp.id(12217664879297813)
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'13'
 ,p_last_updated_by=>'MLUSER'
-,p_last_upd_yyyymmddhh24miss=>'20230308201327'
+,p_last_upd_yyyymmddhh24miss=>'20230613170756'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(9960304544244706)
@@ -29495,7 +29530,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'REGION_POSITION_01'
 ,p_plug_source=>'<span class="cama-header">Discover property values in your area</span>'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 );
@@ -29507,7 +29541,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'BACKGROUND_IMAGE'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_region_image=>'#APP_FILES#property_splash.png'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
@@ -29880,7 +29913,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_grid_column_span=>3
 ,p_plug_source_type=>'NATIVE_FACETED_SEARCH'
 ,p_filtered_region_id=>wwv_flow_imp.id(16317807707428710)
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_06=>'N'
 ,p_attribute_09=>'N'
@@ -30011,7 +30043,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_lazy_loading=>true
 ,p_plug_source_type=>'NATIVE_MAP_REGION'
 ,p_ajax_items_to_submit=>'P3_PROPERTY_ID'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_imp_page.create_map_region(
  p_id=>wwv_flow_imp.id(12603878666347725)
@@ -30871,7 +30902,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_lost_update_check_type=>'VALUES'
 ,p_plug_source_type=>'NATIVE_FORM'
 ,p_ajax_items_to_submit=>'P4_SALES_PRICE'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(16107838573203301)
@@ -30880,7 +30910,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_template=>wwv_flow_imp.id(12237717556297828)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 );
@@ -31005,7 +31034,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_field_template=>wwv_flow_imp.id(12373598216297979)
 ,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--xlarge'
 ,p_attribute_01=>'Y'
-,p_attribute_05=>'HTML'
+,p_attribute_05=>'HTML_UNSAFE'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(14696338469058907)
@@ -31424,7 +31453,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'22'
 ,p_last_updated_by=>'MLUSER'
-,p_last_upd_yyyymmddhh24miss=>'20230308201202'
+,p_last_upd_yyyymmddhh24miss=>'20231009202542'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(31895227584309568)
@@ -31450,7 +31479,6 @@ wwv_flow_imp_page.create_page_plug(
 '  inner join BROOKLYN_LAT_LONG b on b.address_ = a.address_'))
 ,p_lazy_loading=>true
 ,p_plug_source_type=>'NATIVE_MAP_REGION'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_imp_page.create_map_region(
  p_id=>wwv_flow_imp.id(18102585797033202)
@@ -31588,6 +31616,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_source=>'YEAR_STR'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
+,p_lov_sort_direction=>'ASC'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_fc_show_label=>true
 ,p_fc_collapsible=>false
@@ -31613,6 +31642,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_source=>'YEARBUILT'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
+,p_lov_sort_direction=>'ASC'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_fc_show_label=>true
 ,p_fc_collapsible=>false
@@ -31638,6 +31668,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_source=>'BUILDING_CLASS_AT_SALE'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
+,p_lov_sort_direction=>'ASC'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_fc_show_label=>true
 ,p_fc_collapsible=>false
@@ -31663,6 +31694,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_source=>'SCHOOLDIST'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
+,p_lov_sort_direction=>'ASC'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_fc_show_label=>true
 ,p_fc_collapsible=>false
@@ -31688,6 +31720,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_source=>'SANITDISTR'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
+,p_lov_sort_direction=>'ASC'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_fc_show_label=>true
 ,p_fc_collapsible=>false
@@ -31726,7 +31759,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_template=>wwv_flow_imp.id(12271355834297879)
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 );
@@ -31738,7 +31770,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_template=>wwv_flow_imp.id(12242952279297842)
 ,p_plug_display_sequence=>30
 ,p_plug_source_type=>'NATIVE_JET_CHART'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_imp_page.create_jet_chart(
  p_id=>wwv_flow_imp.id(18125598438423898)
@@ -31822,7 +31853,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_template=>wwv_flow_imp.id(12271355834297879)
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 );
@@ -31837,7 +31867,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_display_sequence=>10
 ,p_plug_display_point=>'SUB_REGIONS'
 ,p_plug_source_type=>'NATIVE_JET_CHART'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_imp_page.create_jet_chart(
  p_id=>wwv_flow_imp.id(9963120088244734)
@@ -32000,6 +32029,7 @@ wwv_flow_imp_page.create_page_process(
 '',
 'end;'))
 ,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>17984345269133913
 );
 end;
 /
@@ -32461,7 +32491,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_lazy_loading=>true
 ,p_plug_source_type=>'NATIVE_MAP_REGION'
 ,p_ajax_items_to_submit=>'P8_YEAR_VAL,P8_YEAR,P8_YEAR_STR_MIN,P8_YEAR_STR_MAX,P8_YEAR_STEP_VAL'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_imp_page.create_map_region(
  p_id=>wwv_flow_imp.id(19789523287475465)
@@ -32932,6 +32961,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_attribute_08=>'P12_ERROR_ROW_COUNT'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(21783633073560668)
+,p_internal_uid=>21784152377560670
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(21784541032560671)
@@ -32944,6 +32974,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_when=>':REQUEST = ''CLEAR'' or :P12_ERROR_ROW_COUNT = 0'
 ,p_process_when_type=>'EXPRESSION'
 ,p_process_when2=>'PLSQL'
+,p_internal_uid=>21784541032560671
 );
 end;
 /
@@ -33073,6 +33104,7 @@ wwv_flow_imp_page.create_page_process(
 '    p_consent  => :P9999_REMEMBER = ''Y'' );'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12410867868298233
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12410434071298231)
@@ -33087,6 +33119,7 @@ wwv_flow_imp_page.create_page_process(
 '    p_set_persistent_auth => nvl(:P9999_PERSISTENT_AUTH, ''N'') = ''Y'' );'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12410434071298231
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12411673782298234)
@@ -33096,6 +33129,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_name=>'Clear Page(s) Cache'
 ,p_attribute_01=>'CLEAR_CACHE_CURRENT_PAGE'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12411673782298234
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12411271946298233)
@@ -33107,6 +33141,7 @@ wwv_flow_imp_page.create_page_process(
 ':P9999_USERNAME := apex_authentication.get_login_username_cookie;',
 ':P9999_REMEMBER := case when :P9999_USERNAME is not null then ''Y'' end;'))
 ,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>12411271946298233
 );
 end;
 /
@@ -33658,6 +33693,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_success_message=>'Configuration Options updated. '
+,p_internal_uid=>12421759971298327
 );
 end;
 /
@@ -33856,6 +33892,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_success_message=>'Application Appearance Settings Saved.'
+,p_internal_uid=>12427563554298381
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12427994950298381)
@@ -33891,6 +33928,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_success_message=>'Application Appearance Settings Saved.'
+,p_internal_uid=>12427994950298381
 );
 end;
 /
@@ -33997,29 +34035,6 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_threshold_display=>'onIndicator'
 );
 wwv_flow_imp_page.create_jet_chart_axis(
- p_id=>wwv_flow_imp.id(12431655163298401)
-,p_chart_id=>wwv_flow_imp.id(12428363630298382)
-,p_axis=>'x'
-,p_is_rendered=>'on'
-,p_format_type=>'datetime-short'
-,p_format_scaling=>'auto'
-,p_scaling=>'linear'
-,p_baseline_scaling=>'zero'
-,p_major_tick_rendered=>'on'
-,p_minor_tick_rendered=>'on'
-,p_tick_label_rendered=>'on'
-,p_tick_label_rotation=>'auto'
-,p_tick_label_position=>'outside'
-,p_zoom_order_seconds=>false
-,p_zoom_order_minutes=>false
-,p_zoom_order_hours=>false
-,p_zoom_order_days=>false
-,p_zoom_order_weeks=>false
-,p_zoom_order_months=>false
-,p_zoom_order_quarters=>false
-,p_zoom_order_years=>false
-);
-wwv_flow_imp_page.create_jet_chart_axis(
  p_id=>wwv_flow_imp.id(12431084838298399)
 ,p_chart_id=>wwv_flow_imp.id(12428363630298382)
 ,p_axis=>'y'
@@ -34033,6 +34048,29 @@ wwv_flow_imp_page.create_jet_chart_axis(
 ,p_major_tick_rendered=>'auto'
 ,p_minor_tick_rendered=>'auto'
 ,p_tick_label_rendered=>'on'
+,p_zoom_order_seconds=>false
+,p_zoom_order_minutes=>false
+,p_zoom_order_hours=>false
+,p_zoom_order_days=>false
+,p_zoom_order_weeks=>false
+,p_zoom_order_months=>false
+,p_zoom_order_quarters=>false
+,p_zoom_order_years=>false
+);
+wwv_flow_imp_page.create_jet_chart_axis(
+ p_id=>wwv_flow_imp.id(12431655163298401)
+,p_chart_id=>wwv_flow_imp.id(12428363630298382)
+,p_axis=>'x'
+,p_is_rendered=>'on'
+,p_format_type=>'datetime-short'
+,p_format_scaling=>'auto'
+,p_scaling=>'linear'
+,p_baseline_scaling=>'zero'
+,p_major_tick_rendered=>'on'
+,p_minor_tick_rendered=>'on'
+,p_tick_label_rendered=>'on'
+,p_tick_label_rotation=>'auto'
+,p_tick_label_position=>'outside'
 ,p_zoom_order_seconds=>false
 ,p_zoom_order_minutes=>false
 ,p_zoom_order_hours=>false
@@ -34117,6 +34155,28 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_threshold_display=>'onIndicator'
 );
 wwv_flow_imp_page.create_jet_chart_axis(
+ p_id=>wwv_flow_imp.id(12436040212298405)
+,p_chart_id=>wwv_flow_imp.id(12428517821298382)
+,p_axis=>'x'
+,p_is_rendered=>'on'
+,p_format_scaling=>'auto'
+,p_scaling=>'linear'
+,p_baseline_scaling=>'zero'
+,p_major_tick_rendered=>'auto'
+,p_minor_tick_rendered=>'auto'
+,p_tick_label_rendered=>'on'
+,p_tick_label_rotation=>'auto'
+,p_tick_label_position=>'outside'
+,p_zoom_order_seconds=>false
+,p_zoom_order_minutes=>false
+,p_zoom_order_hours=>false
+,p_zoom_order_days=>false
+,p_zoom_order_weeks=>false
+,p_zoom_order_months=>false
+,p_zoom_order_quarters=>false
+,p_zoom_order_years=>false
+);
+wwv_flow_imp_page.create_jet_chart_axis(
  p_id=>wwv_flow_imp.id(12436651296298405)
 ,p_chart_id=>wwv_flow_imp.id(12428517821298382)
 ,p_axis=>'y'
@@ -34130,28 +34190,6 @@ wwv_flow_imp_page.create_jet_chart_axis(
 ,p_major_tick_rendered=>'auto'
 ,p_minor_tick_rendered=>'auto'
 ,p_tick_label_rendered=>'on'
-,p_zoom_order_seconds=>false
-,p_zoom_order_minutes=>false
-,p_zoom_order_hours=>false
-,p_zoom_order_days=>false
-,p_zoom_order_weeks=>false
-,p_zoom_order_months=>false
-,p_zoom_order_quarters=>false
-,p_zoom_order_years=>false
-);
-wwv_flow_imp_page.create_jet_chart_axis(
- p_id=>wwv_flow_imp.id(12436040212298405)
-,p_chart_id=>wwv_flow_imp.id(12428517821298382)
-,p_axis=>'x'
-,p_is_rendered=>'on'
-,p_format_scaling=>'auto'
-,p_scaling=>'linear'
-,p_baseline_scaling=>'zero'
-,p_major_tick_rendered=>'auto'
-,p_minor_tick_rendered=>'auto'
-,p_tick_label_rendered=>'on'
-,p_tick_label_rotation=>'auto'
-,p_tick_label_position=>'outside'
 ,p_zoom_order_seconds=>false
 ,p_zoom_order_minutes=>false
 ,p_zoom_order_hours=>false
@@ -34231,11 +34269,16 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_threshold_display=>'onIndicator'
 );
 wwv_flow_imp_page.create_jet_chart_axis(
- p_id=>wwv_flow_imp.id(12433545764298403)
+ p_id=>wwv_flow_imp.id(12434170971298403)
 ,p_chart_id=>wwv_flow_imp.id(12428745500298382)
-,p_axis=>'x'
+,p_axis=>'y'
 ,p_is_rendered=>'on'
+,p_format_type=>'decimal'
+,p_decimal_places=>0
+,p_format_scaling=>'auto'
+,p_scaling=>'linear'
 ,p_baseline_scaling=>'zero'
+,p_position=>'auto'
 ,p_major_tick_rendered=>'auto'
 ,p_minor_tick_rendered=>'auto'
 ,p_tick_label_rendered=>'on'
@@ -34249,16 +34292,11 @@ wwv_flow_imp_page.create_jet_chart_axis(
 ,p_zoom_order_years=>false
 );
 wwv_flow_imp_page.create_jet_chart_axis(
- p_id=>wwv_flow_imp.id(12434170971298403)
+ p_id=>wwv_flow_imp.id(12433545764298403)
 ,p_chart_id=>wwv_flow_imp.id(12428745500298382)
-,p_axis=>'y'
+,p_axis=>'x'
 ,p_is_rendered=>'on'
-,p_format_type=>'decimal'
-,p_decimal_places=>0
-,p_format_scaling=>'auto'
-,p_scaling=>'linear'
 ,p_baseline_scaling=>'zero'
-,p_position=>'auto'
 ,p_major_tick_rendered=>'auto'
 ,p_minor_tick_rendered=>'auto'
 ,p_tick_label_rendered=>'on'
@@ -34434,7 +34472,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_name=>'P10030_TIMEFRAME'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_imp.id(12429007614298382)
-,p_item_default=>'900'
 ,p_prompt=>'Timeframe'
 ,p_source=>'900'
 ,p_source_type=>'STATIC'
@@ -34808,7 +34845,6 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_display_sequence=>30
 ,p_plug_source_type=>'NATIVE_JET_CHART'
 ,p_plug_query_num_rows=>15
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_plug_display_condition_type=>'VAL_OF_ITEM_IN_COND_EQ_COND2'
 ,p_plug_display_when_condition=>'P10031_VIEW_AS'
 ,p_plug_display_when_cond2=>'CHART'
@@ -34913,7 +34949,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_name=>'P10031_VIEW_AS'
 ,p_item_sequence=>20
 ,p_item_plug_id=>wwv_flow_imp.id(12480148919299288)
-,p_item_default=>'REPORT'
 ,p_prompt=>'View As'
 ,p_source=>'REPORT'
 ,p_source_type=>'STATIC'
@@ -34935,7 +34970,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_name=>'P10031_TIMEFRAME'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_imp.id(12480148919299288)
-,p_item_default=>'900'
 ,p_prompt=>'Timeframe'
 ,p_source=>'900'
 ,p_source_type=>'STATIC'
@@ -35435,7 +35469,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_name=>'P10033_TIMEFRAME'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_imp.id(12459685296299248)
-,p_item_default=>'900'
 ,p_prompt=>'Timeframe'
 ,p_source=>'900'
 ,p_source_type=>'STATIC'
@@ -35708,7 +35741,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_name=>'P10034_TIMEFRAME'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_imp.id(12448602763299221)
-,p_item_default=>'900'
 ,p_prompt=>'Timeframe'
 ,p_source=>'900'
 ,p_source_type=>'STATIC'
@@ -36124,6 +36156,7 @@ wwv_flow_imp_page.create_page_process(
 ' where id = :P10036_LOG_ID;'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12504509142299377
 );
 end;
 /
@@ -36282,6 +36315,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_success_message=>'Access Control settings saved.'
+,p_internal_uid=>12512461233299398
 );
 end;
 /
@@ -36708,6 +36742,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_type=>'NATIVE_FORM_INIT'
 ,p_process_name=>'Initialize form Manage User Access'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12525512358299434
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12525987153299435)
@@ -36721,6 +36756,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_attribute_06=>'N'
 ,p_attribute_08=>'N'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12525987153299435
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12526367844299436)
@@ -36728,7 +36764,9 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
+,p_attribute_02=>'N'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12526367844299436
 );
 end;
 /
@@ -36819,7 +36857,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_is_required=>true
 ,p_item_sequence=>20
 ,p_item_plug_id=>wwv_flow_imp.id(12526836566299436)
-,p_item_default=>'2'
 ,p_prompt=>'Roles'
 ,p_display_as=>'NATIVE_CHECKBOX'
 ,p_named_lov=>'ACCESS_ROLES'
@@ -37030,6 +37067,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(12526952826299436)
+,p_internal_uid=>12532541164299442
 );
 end;
 /
@@ -37355,6 +37393,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(12527626651299436)
 ,p_process_success_message=>'User(s) added.'
+,p_internal_uid=>12542112434299847
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12542512496299847)
@@ -37362,7 +37401,9 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
+,p_attribute_02=>'N'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12542512496299847
 );
 end;
 /
@@ -37570,6 +37611,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(12543161683299847)
 ,p_process_success_message=>'Feedback Submitted'
+,p_internal_uid=>12551090887299856
 );
 end;
 /
@@ -38051,7 +38093,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'VALUE'
 ,p_attribute_04=>'Y'
-,p_attribute_05=>'HTML'
+,p_attribute_05=>'HTML_UNSAFE'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(12558233065299863)
@@ -38164,6 +38206,7 @@ wwv_flow_imp_page.create_page_process(
 'end loop;'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12561881560299866
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12562261352299866)
@@ -38180,6 +38223,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(12544328445299847)
 ,p_process_success_message=>'Action Processed.'
+,p_internal_uid=>12562261352299866
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12562601844299867)
@@ -38194,6 +38238,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(12544597199299847)
 ,p_process_success_message=>'Feedback Deleted'
+,p_internal_uid=>12562601844299867
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12563003358299867)
@@ -38204,6 +38249,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_attribute_01=>'CLEAR_CACHE_CURRENT_PAGE'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(12544597199299847)
+,p_internal_uid=>12563003358299867
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(12563431883299867)
@@ -38211,7 +38257,9 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_point=>'AFTER_SUBMIT'
 ,p_process_type=>'NATIVE_CLOSE_WINDOW'
 ,p_process_name=>'Close Dialog'
+,p_attribute_02=>'N'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>12563431883299867
 );
 end;
 /
@@ -38314,7 +38362,516 @@ end;
 /
 prompt --application/deployment/definition
 begin
-null;
+wwv_flow_imp_shared.create_install(
+ p_id=>wwv_flow_imp.id(20462049164404827)
+);
+end;
+/
+prompt --application/deployment/install/install_cama_demo_objects
+begin
+wwv_flow_imp_shared.create_install_script(
+ p_id=>wwv_flow_imp.id(22001267973791716)
+,p_install_id=>wwv_flow_imp.id(20462049164404827)
+,p_name=>'CAMA_DEMO_OBJECTS'
+,p_sequence=>10
+,p_script_type=>'INSTALL'
+,p_script_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'  CREATE TABLE "BROOKLYN_FEATURE_IMPORTANCE" ',
+'   (	"variable" VARCHAR2(4000), ',
+'	"importance" NUMBER, ',
+'	"rank" NUMBER(*,0)',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_LAT_LONG" ',
+'   (	"ADDRESS_" VARCHAR2(64), ',
+'	"MAX_SALE_PRICE" NUMBER, ',
+'	"N_TRANSACTIONS" NUMBER, ',
+'	"LATITUDE_" NUMBER, ',
+'	"LONGITUDE_" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TEST" ',
+'   (	"ADDRESS_" VARCHAR2(64), ',
+'	"AIN" NUMBER, ',
+'	"TRANSACTION_ID" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(64), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(64), ',
+'	"YEAR_STR" VARCHAR2(40), ',
+'	"QUARTER" VARCHAR2(1), ',
+'	"YEARBUILT" VARCHAR2(64), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(64), ',
+'	"SANITDISTR" VARCHAR2(64), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"TT" VARCHAR2(5) INVISIBLE',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TEST_AUTOML" ',
+'   (	"ADDRESS_" VARCHAR2(4000), ',
+'	"AIN" NUMBER(*,0), ',
+'	"TRANSACTION_ID" NUMBER(*,0), ',
+'	"GROSS_SQFT" NUMBER(*,0), ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(4000), ',
+'	"SALE_PRICE" NUMBER(*,0), ',
+'	"SALE_DATE" VARCHAR2(4000), ',
+'	"YEAR_STR" VARCHAR2(4000), ',
+'	"QUARTER" VARCHAR2(4000), ',
+'	"YEARBUILT" VARCHAR2(4000), ',
+'	"AGE_YEARS" NUMBER(*,0), ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(4000), ',
+'	"SANITDISTR" VARCHAR2(4000), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER(*,0), ',
+'	"XCOORD" NUMBER(*,0), ',
+'	"YCOORD" NUMBER(*,0), ',
+'	"LAND_SQFT" NUMBER(*,0), ',
+'	"ASSESSLAND" NUMBER(*,0), ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"AUTOML" NUMBER, ',
+'	"FRACTIONAL_ERROR" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TEST_EXTRAS" ',
+'   (	"ADDRESS_" VARCHAR2(4000), ',
+'	"AIN" NUMBER(*,0), ',
+'	"TRANSACTION_ID" NUMBER(*,0), ',
+'	"GROSS_SQFT" NUMBER(*,0), ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(4000), ',
+'	"SALE_PRICE" NUMBER(*,0), ',
+'	"SALE_DATE" VARCHAR2(4000), ',
+'	"YEAR_STR" VARCHAR2(4000), ',
+'	"QUARTER" VARCHAR2(4000), ',
+'	"YEARBUILT" VARCHAR2(4000), ',
+'	"AGE_YEARS" NUMBER(*,0), ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(4000), ',
+'	"SANITDISTR" VARCHAR2(4000), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER(*,0), ',
+'	"XCOORD" NUMBER(*,0), ',
+'	"YCOORD" NUMBER(*,0), ',
+'	"LAND_SQFT" NUMBER(*,0), ',
+'	"ASSESSLAND" NUMBER(*,0), ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"AUTOML" NUMBER, ',
+'	"FRACTIONAL_ERROR" NUMBER, ',
+'	"CLUSTER_" VARCHAR2(4000), ',
+'	"ZONING" VARCHAR2(4000), ',
+'	"NUMQC" VARCHAR2(4000), ',
+'	"ZONINGRE" VARCHAR2(4000), ',
+'	"VIEWCODE" VARCHAR2(4000), ',
+'	"BEDROOMS" VARCHAR2(4000), ',
+'	"BATHROOMS" VARCHAR2(4000), ',
+'	"YEAR_UPDATED" VARCHAR2(4000), ',
+'	"log10_SALE_PRICE" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TEST_FILTERED" ',
+'   (	"ADDRESS_" VARCHAR2(64), ',
+'	"AIN" NUMBER, ',
+'	"TRANSACTION_ID" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(64), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(64), ',
+'	"YEAR_STR" VARCHAR2(40), ',
+'	"QUARTER" VARCHAR2(1), ',
+'	"YEARBUILT" VARCHAR2(64), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(64), ',
+'	"SANITDISTR" VARCHAR2(64), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"SALES_PRICE_PREDICTION" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TEST_GEOCODED" ',
+'   (	"ADDRESS_" VARCHAR2(64), ',
+'	"AIN" NUMBER, ',
+'	"TRANSACTION_ID" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(64), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(64), ',
+'	"YEAR_STR" VARCHAR2(40), ',
+'	"QUARTER" VARCHAR2(1), ',
+'	"YEARBUILT" VARCHAR2(64), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(64), ',
+'	"SANITDISTR" VARCHAR2(64), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"LATITUDE_" NUMBER, ',
+'	"LONGITUDE_" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TEST_PREDICTIONS" ',
+'   (	"ADDRESS_" VARCHAR2(64), ',
+'	"AIN" NUMBER, ',
+'	"TRANSACTION_ID" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(64), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(64), ',
+'	"YEAR_STR" VARCHAR2(40), ',
+'	"QUARTER" VARCHAR2(1), ',
+'	"YEARBUILT" VARCHAR2(64), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(64), ',
+'	"SANITDISTR" VARCHAR2(64), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"SALES_PRICE_PREDICTION" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TRAIN" ',
+'   (	"ADDRESS_" VARCHAR2(64) INVISIBLE, ',
+'	"AIN" NUMBER INVISIBLE, ',
+'	"TRANSACTION_ID" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(64), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(64) INVISIBLE, ',
+'	"YEAR_STR" VARCHAR2(40), ',
+'	"QUARTER" VARCHAR2(1), ',
+'	"YEARBUILT" VARCHAR2(64) INVISIBLE, ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(64), ',
+'	"SANITDISTR" VARCHAR2(64), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"TT" VARCHAR2(5) INVISIBLE',
+'   ) ;',
+'',
+'  CREATE TABLE "BROOKLYN_TRAIN_FILTERED" ',
+'   (	"TRANSACTION_ID" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(64), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"YEAR_STR" VARCHAR2(40), ',
+'	"QUARTER" VARCHAR2(1), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(64), ',
+'	"SANITDISTR" VARCHAR2(64), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "PROPERTY_SALES_PREDICTIONS" ',
+'   (	"RECORD_NO" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(4000), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(4000), ',
+'	"YEAR_STR" VARCHAR2(4000), ',
+'	"QUARTER" VARCHAR2(4000), ',
+'	"ADDRESS_" VARCHAR2(4000), ',
+'	"YEARBUILT" VARCHAR2(4000), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(4000), ',
+'	"SANITDISTR" VARCHAR2(4000), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"AUTOML" NUMBER, ',
+'	"FRACTIONAL_ERROR" NUMBER, ',
+'	"CLUSTER_" VARCHAR2(4000), ',
+'	"ZONING" VARCHAR2(4000), ',
+'	"NUMQC" VARCHAR2(4000), ',
+'	"ZONINGRE" VARCHAR2(4000), ',
+'	"VIEWCODE" VARCHAR2(4000), ',
+'	"BEDROOMS" VARCHAR2(4000), ',
+'	"BATHROOMS" VARCHAR2(4000), ',
+'	"YEAR_UPDATED" VARCHAR2(4000), ',
+'	"log10_SALE_PRICE" NUMBER, ',
+'	"MAX_SALE_PRICE" NUMBER, ',
+'	"N_TRANSACTIONS" NUMBER, ',
+'	"latitude" NUMBER, ',
+'	"longitude" NUMBER, ',
+'	"AGE_YEARS_2017" NUMBER',
+'   ) ;',
+'',
+'  CREATE TABLE "PROPERTY_SALES_PREDICTIONS_FILTERED" ',
+'   (	"RECORD_NO" NUMBER, ',
+'	"GROSS_SQFT" NUMBER, ',
+'	"BUILDING_CLASS_AT_SALE" VARCHAR2(4000), ',
+'	"SALE_PRICE" NUMBER, ',
+'	"SALE_DATE" VARCHAR2(4000), ',
+'	"YEAR_STR" VARCHAR2(4000), ',
+'	"QUARTER" VARCHAR2(4000), ',
+'	"ADDRESS_" VARCHAR2(4000), ',
+'	"YEARBUILT" VARCHAR2(4000), ',
+'	"AGE_YEARS" NUMBER, ',
+'	"RESIDFAR" NUMBER, ',
+'	"CT2010" NUMBER, ',
+'	"SCHOOLDIST" VARCHAR2(4000), ',
+'	"SANITDISTR" VARCHAR2(4000), ',
+'	"NUMFLOORS" NUMBER, ',
+'	"ASSESSTOT" NUMBER, ',
+'	"XCOORD" NUMBER, ',
+'	"YCOORD" NUMBER, ',
+'	"LAND_SQFT" NUMBER, ',
+'	"ASSESSLAND" NUMBER, ',
+'	"LOTFRONT" NUMBER, ',
+'	"SHAPE_LENG" NUMBER, ',
+'	"AUTOML" NUMBER, ',
+'	"FRACTIONAL_ERROR" NUMBER, ',
+'	"CLUSTER_" VARCHAR2(4000), ',
+'	"ZONING" VARCHAR2(4000), ',
+'	"NUMQC" VARCHAR2(4000), ',
+'	"ZONINGRE" VARCHAR2(4000), ',
+'	"VIEWCODE" VARCHAR2(4000), ',
+'	"BEDROOMS" VARCHAR2(4000), ',
+'	"BATHROOMS" VARCHAR2(4000), ',
+'	"YEAR_UPDATED" VARCHAR2(4000), ',
+'	"log10_SALE_PRICE" NUMBER, ',
+'	"MAX_SALE_PRICE" NUMBER, ',
+'	"N_TRANSACTIONS" NUMBER, ',
+'	"latitude" NUMBER, ',
+'	"longitude" NUMBER, ',
+'	"AGE_YEARS_2017" NUMBER',
+'   ) ;',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'create or replace procedure set_predicted_sales_price (p_low_sp number, p_high_sp number) as ',
+'    l_automl_model              varchar2(200);    ',
+'    l_predicted_sales_price     number;',
+'    l_sql                       clob;',
+'    l_create_temp_table         clob;',
+'    l_table_exists              number;',
+'begin',
+'    select model_name into l_automl_model',
+'    from all_mining_models',
+'    where model_name like ''NN_%''',
+'    order by creation_date desc',
+'    fetch first 1 row only;',
+'',
+'    l_table_exists := 0;',
+'',
+'    select count(*) into l_table_exists',
+'    from user_tables',
+'    where table_name = ''BROOKLYN_TEST_FILTERED'';',
+'',
+'    if l_table_exists = 1 then',
+'        execute immediate ''drop table brooklyn_test_filtered'';',
+'    end if;',
+'',
+'    l_create_temp_table := ''create table brooklyn_test_filtered as ',
+'    select a.*, PREDICTION('' || l_automl_model || '' USING',
+'               * ) sales_price_prediction from brooklyn_test a',
+'               where sale_price is not null',
+'               and sale_price >= nvl('''''' || p_low_sp || '''''', sale_price)',
+'               and sale_price <= nvl('''''' || p_high_sp || '''''', sale_price)'';',
+'',
+'    execute immediate l_create_temp_table;',
+'',
+'    execute immediate ''truncate table brooklyn_train_filtered'';',
+'',
+'    insert into brooklyn_train_filtered (select * from brooklyn_train where sale_price >= nvl(p_low_sp, sale_price) and sale_price <= nvl(p_high_sp, sale_price));',
+'',
+'end;',
+'/',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'  CREATE OR REPLACE FORCE EDITIONABLE VIEW "BROOKLYN_TEST_STDEV_VW" ("SD_GROSS_SQFT", "SD_SALE_PRICE", "SD_AGE_YEARS", "SD_RESIDFAR", "SD_CT2010", "SD_NUMFLOORS", "SD_ASSESSTOT", "SD_XCOORD", "SD_YCOORD", "SD_LAND_SQFT", "SD_ASSESSLAND", "SD_LOTFRONT'
+||'", "SD_SHAPE_LENG") AS ',
+'  select round(stddev(GROSS_SQFT), 2) as SD_GROSS_SQFT,  round(stddev(SALE_PRICE), 2) as SD_SALE_PRICE,  round(stddev(AGE_YEARS), 2) as SD_AGE_YEARS,  round(stddev(RESIDFAR), 2) as SD_RESIDFAR, ',
+'round(stddev(CT2010), 2) as SD_CT2010,  round(stddev(NUMFLOORS), 2) as SD_NUMFLOORS,  round(stddev(ASSESSTOT), 2) as SD_ASSESSTOT,  round(stddev(XCOORD), 2) as SD_XCOORD, ',
+'round(stddev(YCOORD), 2) as SD_YCOORD,  round(stddev(LAND_SQFT), 2) as SD_LAND_SQFT,   round(stddev(ASSESSLAND), 2) as SD_ASSESSLAND,   round(stddev(LOTFRONT), 2) as SD_LOTFRONT,  round(stddev(SHAPE_LENG), 2) as SD_SHAPE_LENG',
+'from BROOKLYN_TEST',
+';',
+'',
+'  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PROPERTY_SALES_PREDS_STDEV_VW" ("SD_GROSS_SQFT", "SD_SALE_PRICE", "SD_AGE_YEARS", "SD_RESIDFAR", "SD_CT2010", "SD_NUMFLOORS", "SD_ASSESSTOT", "SD_XCOORD", "SD_YCOORD", "SD_LAND_SQFT", "SD_ASSESSLAND", "SD_L'
+||'OTFRONT", "SD_SHAPE_LENG") AS ',
+'  select round(stddev(GROSS_SQFT), 2) as SD_GROSS_SQFT,  round(stddev(SALE_PRICE), 2) as SD_SALE_PRICE,  round(stddev(AGE_YEARS), 2) as SD_AGE_YEARS,  round(stddev(RESIDFAR), 2) as SD_RESIDFAR, ',
+'round(stddev(CT2010), 2) as SD_CT2010,  round(stddev(NUMFLOORS), 2) as SD_NUMFLOORS,  round(stddev(ASSESSTOT), 2) as SD_ASSESSTOT,  round(stddev(XCOORD), 2) as SD_XCOORD, ',
+'round(stddev(YCOORD), 2) as SD_YCOORD,  round(stddev(LAND_SQFT), 2) as SD_LAND_SQFT,   round(stddev(ASSESSLAND), 2) as SD_ASSESSLAND,   round(stddev(LOTFRONT), 2) as SD_LOTFRONT,  round(stddev(SHAPE_LENG), 2) as SD_SHAPE_LENG',
+'from PROPERTY_SALES_PREDICTIONS',
+';',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+''))
+);
 end;
 /
 prompt --application/deployment/checks

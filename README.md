@@ -52,8 +52,7 @@ model metric=Mean Squared Error. Press Start > Better Accuracy to train ML model
 
 15 test deployed model per blog
 
-16 import APEX application: log into your ADB's APEX workspace, then
-click App Builder > Import f100.sql > Next > Next > Install
+16 Import APEX application: log into your ADB's APEX workspace, then click App Builder > Import.  Select f100.sql to Import.   Click Next.  Accept the defaults and click Install Application.  On the confirmation screen, click Install Supporting Objects.  This will create the necessary Database Objects needed for this demo. You should get a confirmation that the Supporting Objects are installed.
 
 17 inspect APEX dashboards per blog
 
